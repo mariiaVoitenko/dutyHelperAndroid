@@ -8,48 +8,11 @@
     <string name="APP_ID">1668084333411459</string>
     <string name="default_greetings">Log in, please</string>
     <string name="gotomain">Go to main screen</string>
-    <string name="title_activity_take_photo">Take Photo</string>
-    <string name="launch_camera">Take photo</string>
-    <string name="launch_video">Capture video</string>
+    <string name="create_duty">Create duty</string>
+    <string name="create_group">Create group</string>
     <string name="photo_ok">Ok</string>
-    <string name="title_activity_capture_video">Capture Video</string>
-    <string name="title_activity_report">Report</string>
-    <string name="report">Report</string>
-    <string name="submit_report">Submit report</string>
     <string name="add_to_history">Add to history</string>
-    <string name="set_violation_type">Set violation type</string>
     <string name="action_home">Home</string>
     <string name="action_history">History</string>
-    <string name="title_activity_geolocation">Get Geolocation</string>
-    <string name="title_activity_history">HistoryActivity</string>
-    <string name="title_activity_violations">ViolationsActivity</string>
-
-    <string name="violation_group_parking">Parking</string>
-    <string name="violation_group_moving">Moving</string>
-    <string name="violation_other">Other</string>
-
-    <string name="violation_sidewalk_parking">Parking on a sidewalk</string>
-    <string name="violation_prohibited_place_parking">Parking in a prohibited space</string>
-    <string name="violation_double_parking">Double parking</string>
-    <string name="violation_speeding">Speeding</string>
-    <string name="violation_seat_belt">Failure to use a seat belt</string>
-    <string name="violation_stop_sign">Running a stop sign</string>
-    <string name="violation_red_light">Running a red traffic light</string>
-    <string name="title_activity_history_item">HistoryItemActivity</string>
-
-    <string name="message_wrong_number">"Wrong car number"</string>
-    <string name="message_no_photos">"You must apply at least one photo"</string>
-    <string name="message_no_internet">"You are not connected to Internet"</string>
-    <string name="message_no_violations">"You must add the violation information"</string>
-    <string name="message_uploading">"uploading..."</string>
-    <string name="message_done">"Done"</string>
-    <string name="message_saved_to_history">"Saved to history"</string>
-
-    <string name="status_sent">"Sent"</string>
-    <string name="status_not_sent">"Not sent"</string>
-
-    <string name="title_activity_photo_view">PhotoView</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

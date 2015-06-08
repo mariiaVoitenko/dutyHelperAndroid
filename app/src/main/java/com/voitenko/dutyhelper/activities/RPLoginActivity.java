@@ -1,4 +1,4 @@
-package com.voitenko.dutyhelper;
+package com.voitenko.dutyhelper.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,6 +19,8 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.voitenko.dutyhelper.R;
+import com.voitenko.dutyhelper.BL.UserManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

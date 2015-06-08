@@ -1,4 +1,4 @@
-package com.voitenko.dutyhelper;
+package com.voitenko.dutyhelper.BL;
 
 import android.content.Context;
 
