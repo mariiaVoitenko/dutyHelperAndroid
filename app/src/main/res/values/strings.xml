@@ -17,4 +17,6 @@
     <string name="lostpassword">Lost password? <a href="http://www.google.com">DutyHelper on web</a></string>
     <string name="registrate">If you don\'t have account please go to <a href="http://www.google.com">our website</a></string>
     <string name="title_activity_duty">dutyActivity</string>
+    <string name="isDone">Done</string>
+    <string name="isNotDone">Not done</string>
 </resources>

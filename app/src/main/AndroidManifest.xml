@@ -20,11 +20,6 @@
         <activity
             android:name=".activities.RPLoginActivity"
             android:label="Duty Helper Login" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -40,11 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegistrationActivity"
-            android:label="@string/title_activity_registration" >
-        </activity>
-        <activity
-            android:name=".dutyActivity"
+            android:name=".activities.DutiesListActivity"
             android:label="@string/title_activity_duty" >
         </activity>
     </application>

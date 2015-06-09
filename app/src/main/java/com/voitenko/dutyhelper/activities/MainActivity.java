@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.voitenko.dutyhelper.API.UsersAPI;
 import com.voitenko.dutyhelper.BL.ServiceGenerator;
 import com.voitenko.dutyhelper.BL.UserManager;
+import com.voitenko.dutyhelper.ConstantsContainer;
 import com.voitenko.dutyhelper.R;
 import com.voitenko.dutyhelper.models.User;
 
@@ -29,7 +30,6 @@ import retrofit.client.Response;
 public class MainActivity extends ActionBarActivity {
     private Button mCreateGroupButton;
     private Button mCreateDutyButton;
-    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         mCreateGroupButton = (Button) findViewById(R.id.group_button);
         mCreateDutyButton = (Button) findViewById(R.id.duty_button);
+
 
 
         if (!UserManager.isProfileValid(getApplicationContext())) {
@@ -51,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
         }
 
         ServiceGenerator serviceGenerator = new ServiceGenerator();
-        UsersAPI usersAPI = serviceGenerator.createService(UsersAPI.class, "http://10.0.3.2:8080");
+        UsersAPI usersAPI = serviceGenerator.createService(UsersAPI.class, ConstantsContainer.ENDPOINT);
 
 
         usersAPI.getUser(4, new Callback<User>()
@@ -60,7 +61,8 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void success(User user, Response response) {
                         Log.d("RESTOFIT_NORM!!!!!", user.getEmail());
-                        currentUser = user;
+                        Log.d("RESTOFIT_NORM!!!!!", user.getId().toString());
+                        getIntent().putExtra(ConstantsContainer.USER_ID, user.getId());
                     }
 
                     @Override
@@ -72,7 +74,6 @@ public class MainActivity extends ActionBarActivity {
                 }
 
         );
-
 
     }
 
@@ -87,8 +88,14 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
-            Intent loginIntent = new Intent(MainActivity.this, RPLoginActivity.class);
-            startActivity(loginIntent);
+            Intent intent = new Intent(MainActivity.this, RPLoginActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        if (id == R.id.action_duties) {
+            Intent intent = new Intent(MainActivity.this, DutiesListActivity.class);
+            startActivity(intent);
             finish();
             return true;
         }

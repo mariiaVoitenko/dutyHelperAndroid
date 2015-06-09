@@ -13,6 +13,13 @@ public interface UsersAPI {
     public void getUser(@Path("id") int id, Callback<User> response);
 
     @GET("/api/users/email/{email}")
-    public void getUserByEmail(@Path("email") int id, Callback<User> response);
+    public void getUserByEmail(@Path("email") String email, Callback<User> response);
+
+    @GET("/api/users/login/{login}")
+    public void getUserByLogin(@Path("login") String login, Callback<User> response);
+
+    @GET("/api/users/validate/{login}")
+    public void getPasswordByLogin(@Path("login") String login, Callback<User> response);
+
 
 }
