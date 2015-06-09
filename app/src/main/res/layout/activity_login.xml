@@ -25,5 +25,25 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp" />
+    <TextView
+        android:id="@+id/txtLostpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:autoLink="all"
+        android:gravity="center"
+        android:padding="20px"
+        android:text="@string/lostpassword"
+        android:linksClickable="true"/>
 
+    <TextView
+        android:id="@+id/txtRegistrate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:autoLink="all"
+        android:gravity="center"
+        android:padding="20px"
+        android:text="@string/registrate"
+        android:linksClickable="true"/>
 </LinearLayout>

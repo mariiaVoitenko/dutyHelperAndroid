@@ -13,11 +13,23 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/APP_ID" />
 
+        <activity
+            android:name=".activities.RPLoginActivity"
+            android:label="Duty Helper Login" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name" >
@@ -27,22 +39,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.facebook.FacebookActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <activity
-            android:name=".activities.RPLoginActivity"
-            android:label="Road Polizei Login" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name=".RegistrationActivity"
+            android:label="@string/title_activity_registration" >
         </activity>
-
+        <activity
+            android:name=".dutyActivity"
+            android:label="@string/title_activity_duty" >
+        </activity>
     </application>
 
 </manifest>

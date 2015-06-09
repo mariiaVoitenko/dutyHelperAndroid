@@ -5,14 +5,16 @@
     <string name="action_settings">Settings</string>
 
     <string name="action_logout">Log out</string>
-    <string name="APP_ID">1668084333411459</string>
+    <string name="APP_ID">911833842191522</string>
     <string name="default_greetings">Log in, please</string>
     <string name="gotomain">Go to main screen</string>
     <string name="create_duty">Create duty</string>
     <string name="create_group">Create group</string>
-    <string name="photo_ok">Ok</string>
-    <string name="add_to_history">Add to history</string>
+    <string name="action_groups">Show groups</string>
     <string name="action_home">Home</string>
-    <string name="action_history">History</string>
-
+    <string name="action_duties">Duties</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="lostpassword">Lost password? <a href="http://www.google.com">DutyHelper on web</a></string>
+    <string name="registrate">If you don\'t have account please go to <a href="http://www.google.com">our website</a></string>
+    <string name="title_activity_duty">dutyActivity</string>
 </resources>

@@ -1,61 +1,77 @@
 package com.voitenko.dutyhelper.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.voitenko.dutyhelper.BL.UsersAPI;
-import com.voitenko.dutyhelper.R;
+import com.voitenko.dutyhelper.API.UsersAPI;
+import com.voitenko.dutyhelper.BL.ServiceGenerator;
 import com.voitenko.dutyhelper.BL.UserManager;
+import com.voitenko.dutyhelper.R;
 import com.voitenko.dutyhelper.models.User;
-import com.voitenko.dutyhelper.models.gitmodel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Callback;
-import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
 public class MainActivity extends ActionBarActivity {
+    private Button mCreateGroupButton;
+    private Button mCreateDutyButton;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mCreateGroupButton = (Button) findViewById(R.id.group_button);
+        mCreateDutyButton = (Button) findViewById(R.id.duty_button);
+
 
         if (!UserManager.isProfileValid(getApplicationContext())) {
             Intent loginIntent = new Intent(MainActivity.this, RPLoginActivity.class);
             loginIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(loginIntent);
-
-
         } else {
             TextView helloTextView = (TextView) findViewById(R.id.hello_textview);
             helloTextView.setText("Greetings, " + UserManager.getName());
-
+            mCreateDutyButton.setVisibility(View.VISIBLE);
+            mCreateGroupButton.setVisibility(View.VISIBLE);
         }
 
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint("http://10.0.3.2:8080").setLogLevel(RestAdapter.LogLevel.NONE).build();
-        UsersAPI usersAPI = restAdapter.create(UsersAPI.class);
-        usersAPI.getUser(4, new Callback<User>() {
-            @Override
-            public void success(User user, Response response) {
-                Log.d("RESTOFIT_NORM!!!!!", user.getEmail());
-            }
+        ServiceGenerator serviceGenerator = new ServiceGenerator();
+        UsersAPI usersAPI = serviceGenerator.createService(UsersAPI.class, "http://10.0.3.2:8080");
 
-            @Override
-            public void failure(RetrofitError error) {
-                Log.d("RESTOFIT_ERROR!!!!!", error.getMessage());
-                error.printStackTrace();
-                Log.d("RESTOFIT_ERROR!!!!!", "");
-            }
-        });
 
+        usersAPI.getUser(4, new Callback<User>()
+
+                {
+                    @Override
+                    public void success(User user, Response response) {
+                        Log.d("RESTOFIT_NORM!!!!!", user.getEmail());
+                        currentUser = user;
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("RESTOFIT_ERROR!!!!!", error.getMessage());
+                        error.printStackTrace();
+                        Log.d("RESTOFIT_ERROR!!!!!", "");
+                    }
+                }
+
+        );
 
 
     }
@@ -82,4 +98,6 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

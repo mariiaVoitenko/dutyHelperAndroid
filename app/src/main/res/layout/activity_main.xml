@@ -21,12 +21,21 @@
         android:id="@+id/duty_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create_duty" />
+        android:text="@string/create_duty"
+        android:visibility="invisible"/>
 
     <Button
         android:id="@+id/group_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create_group" />
+        android:text="@string/create_group"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/registrate_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrate" />
+
 
 </LinearLayout>
