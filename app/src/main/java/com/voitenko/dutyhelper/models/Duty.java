@@ -1,6 +1,7 @@
 package com.voitenko.dutyhelper.models;
 
 import javax.annotation.Generated;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -29,6 +30,21 @@ public class Duty {
     private Priority priority;
     @Expose
     private Category category;
+
+    public Duty() {
+
+    }
+
+    public Duty(String name, Category category, Priority priority, String description, String startDate, String endDate, String canChange, String isDone) {
+        this.name = name;
+        this.category = category;
+        this.priority = priority;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.canChange = canChange;
+        this.isDone = isDone;
+    }
 
     public Integer getId() {
         return id;

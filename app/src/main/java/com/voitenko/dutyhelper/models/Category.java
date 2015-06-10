@@ -1,6 +1,7 @@
 package com.voitenko.dutyhelper.models;
 
 import javax.annotation.Generated;
+
 import com.google.gson.annotations.Expose;
 
 @Generated("org.jsonschema2pojo")
@@ -10,6 +11,19 @@ public class Category {
     private Integer id;
     @Expose
     private String name;
+
+    public Category() {
+
+    }
+
+    public Category( String name) {
+        this.name = name;
+    }
+
+    public Category(int id, String name) {
+        this.id=id;
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;

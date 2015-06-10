@@ -51,10 +51,10 @@ public class MainActivity extends ActionBarActivity {
             mCreateGroupButton.setVisibility(View.VISIBLE);
         }
         String email = getIntent().getStringExtra("email");
-        if(email==null){
-            email="mariya.voytenko@gmail.com";
+        if (email == null) {
+            email = "mariya.voytenko@gmail.com";
         }
-        userId=4;
+        userId = 4;
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         UsersAPI usersAPI = serviceGenerator.createService(UsersAPI.class, ConstantsContainer.ENDPOINT);
 
@@ -73,7 +73,15 @@ public class MainActivity extends ActionBarActivity {
                 }
 
         );
-
+        mCreateDutyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent create = new Intent(MainActivity.this, CreateDutyActivity.class);
+                mIDTextView = (TextView) findViewById(R.id.txtID);
+                create.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
+                startActivity(create);
+            }
+        });
     }
 
     @Override

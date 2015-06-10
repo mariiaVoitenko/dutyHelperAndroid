@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="7dp">
+        android:paddingLeft="7dp">
 
         <TextView
             android:id="@+id/nameLabel"
@@ -20,13 +20,14 @@
             android:layout_height="wrap_content"
             android:text="Duty: "
             android:textColor="#4a4a4a"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:paddingTop="10dp"/>
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/create_name"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="NAMENAMENAME"
+            android:text=""
             android:textColor="#4a4a4a"
             android:layout_gravity="left"
             android:textStyle="italic"
@@ -38,7 +39,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="7dp"
+        android:paddingLeft="7dp"
         android:orientation="horizontal">
 
         <TextView
@@ -47,13 +48,14 @@
             android:layout_height="wrap_content"
             android:text="Start date: "
             android:textColor="#4a4a4a"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:paddingTop="10dp"/>
 
-        <TextView
-            android:id="@+id/date_start"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/create_date_start"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="DATEDATEDATE"
+            android:text=""
             android:textStyle="italic"
             android:textColor="#4a4a4a"
             android:layout_gravity="left"
@@ -64,7 +66,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="7dp"
+        android:paddingLeft="7dp"
         android:orientation="horizontal">
 
         <TextView
@@ -73,14 +75,15 @@
             android:layout_height="wrap_content"
             android:text="End date: "
             android:textColor="#4a4a4a"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:paddingTop="10dp"/>
 
-        <TextView
-            android:id="@+id/date_end"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/create_date_end"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:text="DATE2DATE2DATE"
+            android:text=""
             android:textStyle="italic"
             android:textColor="#4a4a4a"
             android:textSize="16sp" />
@@ -92,7 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="7dp">
+        android:paddingLeft="7dp">
 
         <TextView
             android:id="@+id/descriptionLabel"
@@ -100,14 +103,15 @@
             android:layout_height="wrap_content"
             android:text="Description: "
             android:textColor="#4a4a4a"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:paddingTop="10dp"/>
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/create_description"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:text="DESCRIPTIONDESCRIPTION"
+            android:text=""
             android:textStyle="italic"
             android:textColor="#4a4a4a"
             android:textSize="18sp" />
@@ -118,7 +122,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="7dp">
+        android:paddingLeft="7dp">
 
         <TextView
             android:id="@+id/categoryLabel"
@@ -126,14 +130,15 @@
             android:layout_height="wrap_content"
             android:text="Category: "
             android:textColor="#4a4a4a"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:paddingTop="10dp"/>
 
-        <TextView
-            android:id="@+id/categoty"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/create_categoty"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:text="CATEGORYCATEGORY"
+            android:text=""
             android:textStyle="italic"
             android:textColor="#4a4a4a"
 
@@ -145,7 +150,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="7dp">
+        android:paddingLeft="7dp">
 
         <TextView
             android:id="@+id/priorityLabel"
@@ -153,17 +158,59 @@
             android:layout_height="wrap_content"
             android:text="Priority: "
             android:textColor="#4a4a4a"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:paddingTop="10dp"/>
 
-        <TextView
-            android:id="@+id/priority"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/create_priority"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/date"
-            android:text="PRIORITYPRIORITY"
+            android:text=""
             android:textStyle="italic"
             android:textColor="#4a4a4a"
             android:layout_gravity="left"
             android:textSize="16sp" />
     </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="7dp">
+
+        <TextView
+            android:id="@+id/doneLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Done: "
+            android:textColor="#4a4a4a"
+            android:textSize="16sp"
+            android:paddingTop="10dp"/>
+
+        <EditText
+            android:id="@+id/create_done"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textStyle="italic"
+            android:text=""
+            android:textColor="#4a4a4a"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtcreatedutyID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="20px"
+        android:text=""
+        android:visibility="invisible"/>
+    <Button
+        android:id="@+id/create_duty_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_duty"/>
 </LinearLayout>

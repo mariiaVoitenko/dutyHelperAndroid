@@ -107,7 +107,7 @@ public class EmergencyDutiesListActivity extends ActionBarActivity {
             return true;
         }
         if (id == R.id.action_groups) {
-            mIDTextView = (TextView) findViewById(R.id.txtID);
+            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
             Intent intent = new Intent(EmergencyDutiesListActivity.this, GroupListActivity.class);
             intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
