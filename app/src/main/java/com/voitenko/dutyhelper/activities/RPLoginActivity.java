@@ -41,8 +41,6 @@ public class RPLoginActivity extends Activity {
     private CallbackManager mCallbackManager;
     private Button mGoToMainButton;
     private LoginButton mFbLoginButton;
-    private TextView mForgottenPasswordTextView;
-    private TextView mRegistrationTextView;
 
     private FacebookCallback<LoginResult> mCallback = new FacebookCallback<LoginResult>() {
         @Override
@@ -72,19 +70,14 @@ public class RPLoginActivity extends Activity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_login);
-        mRegistrationTextView=(TextView)findViewById(R.id.txtRegistrate);
-//        mRegistrationTextView.setText(Html.fromHtml(
-//                "<b>If you lost your password please contact </b>" +
-//                        "<a href=\"http://10.0.3.2:8080/#/register\">DutyHelper on web</a> "));
-//        mRegistrationTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
         mFbLoginButton = (LoginButton) findViewById(R.id.login_button);
         mFbLoginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday, user_friends"));
-        mFbLoginButton.registerCallback(mCallbackManager, mCallback);
+       // mFbLoginButton.registerCallback(mCallbackManager, mCallback);
         // Callback registration
         mFbLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
+            public void onSuccess(final LoginResult loginResult) {
                 // App code
                 GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(),
@@ -96,11 +89,15 @@ public class RPLoginActivity extends Activity {
                                 String email = null;
                                 try {
                                     email = object.getString("email");
+                                    Log.v("LoginActivity", email);
+                                    Intent main = new Intent(RPLoginActivity.this, MainActivity.class);
+                                    main.putExtra("email", email);
+                                    startActivity(main);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                                 Log.v("LoginActivity", response.toString());
-                                Log.v("LoginActivity", object.toString());
+                                Log.v("LoginActivity", loginResult.getAccessToken().getToken());
 
                             }
                         });

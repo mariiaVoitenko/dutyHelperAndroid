@@ -8,45 +8,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.voitenko.dutyhelper.API.AppointmentAPI;
-import com.voitenko.dutyhelper.API.DutiesAPI;
-import com.voitenko.dutyhelper.API.UsersAPI;
+import com.voitenko.dutyhelper.BL.DataConverter;
 import com.voitenko.dutyhelper.BL.ServiceGenerator;
 import com.voitenko.dutyhelper.ConstantsContainer;
 import com.voitenko.dutyhelper.R;
 import com.voitenko.dutyhelper.models.Appointment;
 import com.voitenko.dutyhelper.models.Duty;
-import com.voitenko.dutyhelper.models.User;
 import com.voitenko.dutyhelper.structures.DutyListAdapter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class DutiesListActivity extends ActionBarActivity {
+public class EmergencyDutiesListActivity extends ActionBarActivity {
     int userId;
-    ArrayList<Duty> duties;
-    List<Appointment> appointments = new ArrayList<>();
     TextView mIDTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_duty);
+        setContentView(R.layout.activity_emergency_duties_list);
         mIDTextView = (TextView) findViewById(R.id.txtdutyID);
         userId = Integer.parseInt(getIntent().getExtras().getString(ConstantsContainer.USER_ID));
         mIDTextView.setText(Integer.toString(userId));
-        getIntent().putExtra(ConstantsContainer.USER_ID,userId);
-
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         final AppointmentAPI appointmentAPI = serviceGenerator.createService(AppointmentAPI.class, ConstantsContainer.ENDPOINT);
         appointmentAPI.getAll(
@@ -56,10 +47,21 @@ public class DutiesListActivity extends ActionBarActivity {
                         ArrayList<Duty> items = new ArrayList<>();
                         for (Appointment a : result) {
                             if (a.getUser().getId().equals(userId)) {
-                                items.add(a.getDuty());
+                                Log.d("!!!DATE_ERROR!!!!!", DataConverter.getDate(a.getDuty().getEndDate()));
+                                Date date = null;
+                                try {
+                                    date = DataConverter.parseDate(DataConverter.getDate(a.getDuty().getEndDate()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                Date now = new Date();
+                                Date dayPlus = new Date(now.getTime() + (1000 * 60 * 60 * 24));
+                                if (dayPlus.getTime() > date.getTime()) {
+                                    items.add(a.getDuty());
+                                }
                             }
                         }
-                        final DutyListAdapter adapter = new DutyListAdapter(DutiesListActivity.this, items);
+                        final DutyListAdapter adapter = new DutyListAdapter(EmergencyDutiesListActivity.this, items);
                         ListView listView = (ListView) findViewById(R.id.listview);
                         listView.setAdapter(adapter);
                     }
@@ -83,18 +85,14 @@ public class DutiesListActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
-            Intent intent = new Intent(DutiesListActivity.this, RPLoginActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, userId);
+            Intent intent = new Intent(EmergencyDutiesListActivity.this, RPLoginActivity.class);
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_duties) {
-            return true;
-        }
-        if (id == R.id.action_emergency) {
             mIDTextView = (TextView) findViewById(R.id.txtdutyID);
-            Intent intent = new Intent(DutiesListActivity.this, EmergencyDutiesListActivity.class);
+            Intent intent = new Intent(EmergencyDutiesListActivity.this, DutiesListActivity.class);
             intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
@@ -102,21 +100,28 @@ public class DutiesListActivity extends ActionBarActivity {
         }
         if (id == R.id.action_home) {
             mIDTextView = (TextView) findViewById(R.id.txtdutyID);
-            Intent intent = new Intent(DutiesListActivity.this, EmergencyDutiesListActivity.class);
+            Intent intent = new Intent(EmergencyDutiesListActivity.this, MainActivity.class);
             intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_groups) {
-            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
-            Intent intent = new Intent(DutiesListActivity.this, GroupListActivity.class);
+            mIDTextView = (TextView) findViewById(R.id.txtID);
+            Intent intent = new Intent(EmergencyDutiesListActivity.this, GroupListActivity.class);
             intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
-
+        if (id == R.id.action_emergency) {
+            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
+            Intent intent = new Intent(EmergencyDutiesListActivity.this, GroupListActivity.class);
+            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
+            startActivity(intent);
+            finish();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

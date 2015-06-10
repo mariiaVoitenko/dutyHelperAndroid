@@ -1,5 +1,7 @@
 package com.voitenko.dutyhelper.BL;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -28,5 +30,23 @@ public class DataConverter {
         } catch (Exception e) {
         }
         return timestamp;
+    }
+
+    public static String getTime(String time) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(time.substring(0, 10)).append(" ").append(time.substring(11, 16));
+        return sb.toString();
+    }
+
+    public static String getDate(String time) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(time.substring(0, 10));
+        return sb.toString();
+    }
+
+    public static Date parseDate(String str_date) throws ParseException {
+        DateFormat formatter ;
+        formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.parse(str_date);
     }
 }

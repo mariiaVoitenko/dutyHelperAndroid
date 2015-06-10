@@ -12,7 +12,7 @@ public interface UsersAPI {
     @GET("/api/users/id/{id}")
     public void getUser(@Path("id") int id, Callback<User> response);
 
-    @GET("/api/users/email/{email}")
+    @GET("/api/users/email?email=")
     public void getUserByEmail(@Path("email") String email, Callback<User> response);
 
     @GET("/api/users/login/{login}")

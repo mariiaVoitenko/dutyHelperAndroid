@@ -8,22 +8,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.voitenko.dutyhelper.API.AppointmentAPI;
-import com.voitenko.dutyhelper.API.DutiesAPI;
-import com.voitenko.dutyhelper.API.UsersAPI;
+import com.voitenko.dutyhelper.API.MembershipAPI;
 import com.voitenko.dutyhelper.BL.ServiceGenerator;
 import com.voitenko.dutyhelper.ConstantsContainer;
 import com.voitenko.dutyhelper.R;
 import com.voitenko.dutyhelper.models.Appointment;
 import com.voitenko.dutyhelper.models.Duty;
+import com.voitenko.dutyhelper.models.Group;
+import com.voitenko.dutyhelper.models.Membership;
 import com.voitenko.dutyhelper.models.User;
 import com.voitenko.dutyhelper.structures.DutyListAdapter;
+import com.voitenko.dutyhelper.structures.GroupListAdapter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,35 +30,35 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class DutiesListActivity extends ActionBarActivity {
+public class GroupListActivity extends ActionBarActivity {
+
     int userId;
-    ArrayList<Duty> duties;
-    List<Appointment> appointments = new ArrayList<>();
+    List<Membership> memberships = new ArrayList<>();
     TextView mIDTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_duty);
-        mIDTextView = (TextView) findViewById(R.id.txtdutyID);
+        setContentView(R.layout.activity_group_list);
+        mIDTextView = (TextView) findViewById(R.id.txtgroupID);
         userId = Integer.parseInt(getIntent().getExtras().getString(ConstantsContainer.USER_ID));
         mIDTextView.setText(Integer.toString(userId));
         getIntent().putExtra(ConstantsContainer.USER_ID,userId);
 
         ServiceGenerator serviceGenerator = new ServiceGenerator();
-        final AppointmentAPI appointmentAPI = serviceGenerator.createService(AppointmentAPI.class, ConstantsContainer.ENDPOINT);
-        appointmentAPI.getAll(
-                new Callback<ArrayList<Appointment>>() {
+        final MembershipAPI membershipAPI = serviceGenerator.createService(MembershipAPI.class, ConstantsContainer.ENDPOINT);
+        membershipAPI.getAll(
+                new Callback<ArrayList<Membership>>() {
                     @Override
-                    public void success(ArrayList<Appointment> result, Response response) {
-                        ArrayList<Duty> items = new ArrayList<>();
-                        for (Appointment a : result) {
+                    public void success(ArrayList<Membership> result, Response response) {
+                        ArrayList<Group> items = new ArrayList<>();
+                        for (Membership a : result) {
                             if (a.getUser().getId().equals(userId)) {
-                                items.add(a.getDuty());
+                                items.add(a.getUserGroup());
                             }
                         }
-                        final DutyListAdapter adapter = new DutyListAdapter(DutiesListActivity.this, items);
-                        ListView listView = (ListView) findViewById(R.id.listview);
+                        final GroupListAdapter adapter = new GroupListAdapter(GroupListActivity.this, items);
+                        ListView listView = (ListView) findViewById(R.id.listviewGroup);
                         listView.setAdapter(adapter);
                     }
 
@@ -74,6 +72,7 @@ public class DutiesListActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -83,34 +82,30 @@ public class DutiesListActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
-            Intent intent = new Intent(DutiesListActivity.this, RPLoginActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, userId);
+            Intent intent = new Intent(GroupListActivity.this, RPLoginActivity.class);
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_duties) {
-            return true;
-        }
-        if (id == R.id.action_emergency) {
-            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
-            Intent intent = new Intent(DutiesListActivity.this, EmergencyDutiesListActivity.class);
+            TextView mIDTextView = (TextView) findViewById(R.id.txtgroupID);
+            Intent intent = new Intent(GroupListActivity.this, DutiesListActivity.class);
             intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_home) {
-            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
-            Intent intent = new Intent(DutiesListActivity.this, EmergencyDutiesListActivity.class);
+            TextView mIDTextView = (TextView) findViewById(R.id.txtgroupID);
+            Intent intent = new Intent(GroupListActivity.this, MainActivity.class);
             intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
-        if (id == R.id.action_groups) {
-            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
-            Intent intent = new Intent(DutiesListActivity.this, GroupListActivity.class);
+        if (id == R.id.action_emergency) {
+            TextView mIDTextView = (TextView) findViewById(R.id.txtgroupID);
+            Intent intent = new Intent(GroupListActivity.this, EmergencyDutiesListActivity.class);
             intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();

@@ -2,6 +2,7 @@ package com.voitenko.dutyhelper.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -30,6 +31,8 @@ import retrofit.client.Response;
 public class MainActivity extends ActionBarActivity {
     private Button mCreateGroupButton;
     private Button mCreateDutyButton;
+    private int userId;
+    TextView mIDTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +40,6 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         mCreateGroupButton = (Button) findViewById(R.id.group_button);
         mCreateDutyButton = (Button) findViewById(R.id.duty_button);
-
-
-
         if (!UserManager.isProfileValid(getApplicationContext())) {
             Intent loginIntent = new Intent(MainActivity.this, RPLoginActivity.class);
             loginIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -50,26 +50,25 @@ public class MainActivity extends ActionBarActivity {
             mCreateDutyButton.setVisibility(View.VISIBLE);
             mCreateGroupButton.setVisibility(View.VISIBLE);
         }
-
+        String email = getIntent().getStringExtra("email");
+        if(email==null){
+            email="mariya.voytenko@gmail.com";
+        }
+        userId=4;
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         UsersAPI usersAPI = serviceGenerator.createService(UsersAPI.class, ConstantsContainer.ENDPOINT);
 
-
-        usersAPI.getUser(4, new Callback<User>()
-
-                {
+        usersAPI.getUser(userId, new Callback<User>() {
                     @Override
                     public void success(User user, Response response) {
-                        Log.d("RESTOFIT_NORM!!!!!", user.getEmail());
-                        Log.d("RESTOFIT_NORM!!!!!", user.getId().toString());
+                        mIDTextView = (TextView) findViewById(R.id.txtID);
+                        mIDTextView.setText(user.getId().toString());
                         getIntent().putExtra(ConstantsContainer.USER_ID, user.getId());
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d("RESTOFIT_ERROR!!!!!", error.getMessage());
-                        error.printStackTrace();
-                        Log.d("RESTOFIT_ERROR!!!!!", "");
                     }
                 }
 
@@ -94,7 +93,25 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
         if (id == R.id.action_duties) {
+            mIDTextView = (TextView) findViewById(R.id.txtID);
             Intent intent = new Intent(MainActivity.this, DutiesListActivity.class);
+            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        if (id == R.id.action_emergency) {
+            mIDTextView = (TextView) findViewById(R.id.txtID);
+            Intent intent = new Intent(MainActivity.this, EmergencyDutiesListActivity.class);
+            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        if (id == R.id.action_groups) {
+            mIDTextView = (TextView) findViewById(R.id.txtID);
+            Intent intent = new Intent(MainActivity.this, GroupListActivity.class);
+            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;

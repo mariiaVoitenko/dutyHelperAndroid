@@ -13,10 +13,12 @@
     <string name="action_groups">Show groups</string>
     <string name="action_home">Home</string>
     <string name="action_duties">Duties</string>
-    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="action_emergency_duties">Urgent Duties</string>
     <string name="lostpassword">Lost password? <a href="http://www.google.com">DutyHelper on web</a></string>
     <string name="registrate">If you don\'t have account please go to <a href="http://www.google.com">our website</a></string>
-    <string name="title_activity_duty">dutyActivity</string>
+    <string name="title_activity_duty">Duties</string>
     <string name="isDone">Done</string>
     <string name="isNotDone">Not done</string>
+    <string name="title_activity_emergency_duties_list">Emergency Duties</string>
+    <string name="title_activity_group_list">GroupListActivity</string>
 </resources>

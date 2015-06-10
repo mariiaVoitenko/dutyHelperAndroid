@@ -7,93 +7,189 @@
     android:padding="7dp"
     android:weightSum="4">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:orientation="horizontal"
-        android:weightSum="7">
+        android:padding="7dp">
+
+        <TextView
+            android:id="@+id/nameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duty: "
+            android:textColor="#4a4a4a"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="NAMENAMENAME"
             android:textColor="#4a4a4a"
-            android:textSize="24sp"
-            android:layout_weight="3"></TextView>
+            android:layout_gravity="left"
+            android:textStyle="italic"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/startDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start date: "
+            android:textColor="#4a4a4a"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/date_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DATEDATEDATE"
-            android:padding="5dp"
+            android:textStyle="italic"
             android:textColor="#4a4a4a"
-            android:textSize="12sp"
-            android:layout_weight="2"></TextView>
+            android:layout_gravity="left"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/endDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End date: "
+            android:textColor="#4a4a4a"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/date_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:text="DATE2DATE2DATE"
+            android:textStyle="italic"
             android:textColor="#4a4a4a"
-            android:textSize="12sp"
-            android:layout_weight="2"></TextView>
+            android:textSize="16sp" />
     </LinearLayout>
 
-    <LinearLayout
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="7dp">
+
+        <TextView
+            android:id="@+id/descriptionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description: "
+            android:textColor="#4a4a4a"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:layout_gravity="left"
             android:text="DESCRIPTIONDESCRIPTION"
+            android:textStyle="italic"
             android:textColor="#4a4a4a"
-            android:textSize="16sp"></TextView>
+            android:textSize="18sp" />
     </LinearLayout>
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:orientation="horizontal"
-        android:weightSum="5">
+        android:padding="7dp">
+
+        <TextView
+            android:id="@+id/categoryLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category: "
+            android:textColor="#4a4a4a"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/categoty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:text="CATEGORYCATEGORY"
+            android:textStyle="italic"
             android:textColor="#4a4a4a"
-            android:textSize="12sp"
-            android:layout_weight="2"></TextView>
+
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="7dp">
+
+        <TextView
+            android:id="@+id/priorityLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Priority: "
+            android:textColor="#4a4a4a"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/priority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/date"
-            android:padding="5dp"
-            android:paddingLeft="5dp"
             android:text="PRIORITYPRIORITY"
+            android:textStyle="italic"
             android:textColor="#4a4a4a"
-            android:textSize="12sp"
-            android:layout_weight="2"></TextView>
+            android:layout_gravity="left"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="7dp">
+
+        <TextView
+            android:id="@+id/doneLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Done: "
+            android:textColor="#4a4a4a"
+            android:textSize="16sp" />
+
         <TextView
             android:id="@+id/done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textStyle="italic"
             android:text="DONEDONEDONE"
             android:textColor="#4a4a4a"
-            android:textSize="12sp"
-            android:layout_weight="1"></TextView>
+            android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>
