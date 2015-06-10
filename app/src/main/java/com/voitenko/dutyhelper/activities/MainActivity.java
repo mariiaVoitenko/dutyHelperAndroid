@@ -12,14 +12,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.voitenko.dutyhelper.API.UsersAPI;
+import com.voitenko.dutyhelper.BL.DataConverter;
 import com.voitenko.dutyhelper.BL.ServiceGenerator;
 import com.voitenko.dutyhelper.BL.UserManager;
 import com.voitenko.dutyhelper.ConstantsContainer;
 import com.voitenko.dutyhelper.R;
 import com.voitenko.dutyhelper.models.User;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,10 +54,20 @@ public class MainActivity extends ActionBarActivity {
             mCreateDutyButton.setVisibility(View.VISIBLE);
             mCreateGroupButton.setVisibility(View.VISIBLE);
         }
-        String email = getIntent().getStringExtra("email");
-        if (email == null) {
-            email = "mariya.voytenko@gmail.com";
+
+        File file = new File(ConstantsContainer.FILEPATH);
+        String email = null;
+        try {
+            email = DataConverter.readFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        //
+        Toast toast = Toast.makeText(getApplicationContext(),
+                email, Toast.LENGTH_SHORT);
+        toast.show();
+        //
+
         userId = 4;
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         UsersAPI usersAPI = serviceGenerator.createService(UsersAPI.class, ConstantsContainer.ENDPOINT);

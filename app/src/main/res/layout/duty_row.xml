@@ -166,4 +166,30 @@
             android:layout_gravity="left"
             android:textSize="16sp" />
     </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="7dp">
+
+        <TextView
+            android:id="@+id/doneLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Done: "
+            android:textColor="#4a4a4a"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textStyle="italic"
+            android:text="DONEDONEDONE"
+            android:textColor="#4a4a4a"
+            android:textSize="16sp" />
+    </LinearLayout>
 </LinearLayout>

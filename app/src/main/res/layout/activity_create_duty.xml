@@ -160,7 +160,6 @@
             android:textColor="#4a4a4a"
             android:textSize="16sp"
             android:paddingTop="10dp"/>
-
         <EditText
             android:id="@+id/create_priority"
             android:layout_width="fill_parent"
@@ -173,32 +172,7 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="7dp">
 
-        <TextView
-            android:id="@+id/doneLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Done: "
-            android:textColor="#4a4a4a"
-            android:textSize="16sp"
-            android:paddingTop="10dp"/>
-
-        <EditText
-            android:id="@+id/create_done"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:textStyle="italic"
-            android:text=""
-            android:textColor="#4a4a4a"
-            android:textSize="16sp" />
-    </LinearLayout>
     <TextView
         android:id="@+id/txtcreatedutyID"
         android:layout_width="wrap_content"

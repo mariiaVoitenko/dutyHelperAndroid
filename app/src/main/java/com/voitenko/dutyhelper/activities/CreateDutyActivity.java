@@ -63,8 +63,8 @@ public class CreateDutyActivity extends ActionBarActivity {
                         new Callback<ArrayList<Category>>() {
                             @Override
                             public void success(ArrayList<Category> categories, Response response) {
-                                int idC=0;
-                                String nameC="";
+                                int idC = 0;
+                                String nameC = "";
                                 for (Category c : categories) {
                                     if (c.getName().equals(categoryName)) {
                                         idC = c.getId();
@@ -72,8 +72,8 @@ public class CreateDutyActivity extends ActionBarActivity {
 
                                     }
                                 }
-                                final String categotyName=nameC;
-                                final int categoryId=idC;
+                                final String categoryName = nameC;
+                                final int categoryId = idC;
                                 prioritiesAPI.getAll(
                                         new Callback<ArrayList<Priority>>() {
                                             int id;
@@ -139,17 +139,13 @@ public class CreateDutyActivity extends ActionBarActivity {
                 );
             }
         });
-
-
-
-        /*Duty duty = new Duty();
-        duty.setCanChange(false);
-        duty.setCategory(category.getText().toString());*/
+        Intent intent = new Intent(CreateDutyActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_create_duty, menu);
         return true;
     }

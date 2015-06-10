@@ -24,12 +24,16 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.voitenko.dutyhelper.BL.DataConverter;
+import com.voitenko.dutyhelper.ConstantsContainer;
 import com.voitenko.dutyhelper.R;
 import com.voitenko.dutyhelper.BL.UserManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -90,9 +94,12 @@ public class RPLoginActivity extends Activity {
                                 try {
                                     email = object.getString("email");
                                     Log.v("LoginActivity", email);
-                                    Intent main = new Intent(RPLoginActivity.this, MainActivity.class);
-                                    main.putExtra("email", email);
-                                    startActivity(main);
+                                    File file = new File(ConstantsContainer.FILEPATH);
+                                    try {
+                                        DataConverter.writeFile(email,file);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

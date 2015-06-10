@@ -1,5 +1,10 @@
 package com.voitenko.dutyhelper.BL;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -45,8 +50,23 @@ public class DataConverter {
     }
 
     public static Date parseDate(String str_date) throws ParseException {
-        DateFormat formatter ;
+        DateFormat formatter;
         formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.parse(str_date);
+    }
+
+    public static void writeFile(String text, File file) throws IOException {
+        FileOutputStream stream = new FileOutputStream(file);
+        stream.write(text.getBytes());
+        stream.close();
+    }
+
+    public static String readFile(File file) throws IOException {
+        int length = (int) file.length();
+        byte[] bytes = new byte[length];
+        FileInputStream in = new FileInputStream(file);
+            in.read(bytes);
+            in.close();
+        return new String(bytes);
     }
 }
