@@ -248,12 +248,4 @@ public class DutyDetailsActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    private void editDuty(){
-
-    }
-
-    private void getDuty(){
-
-    }
 }

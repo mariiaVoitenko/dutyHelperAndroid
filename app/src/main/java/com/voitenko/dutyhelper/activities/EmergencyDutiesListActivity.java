@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.v4.app.NotificationCompat;
+import android.widget.TextView;
 
 import com.voitenko.dutyhelper.API.AppointmentAPI;
 import com.voitenko.dutyhelper.BL.DataConverter;
@@ -101,14 +104,34 @@ public class EmergencyDutiesListActivity extends ActionBarActivity {
                                 }
                                 Date now = new Date();
                                 Date dayPlus = new Date(now.getTime() + (1000 * 60 * 60 * 24));
-                                if (dayPlus.getTime() > date.getTime()) {
-                                    items.add(a.getDuty());
+                                if (dayPlus.getTime() > date.getTime() ) {
+                                    if (a.getDuty().getIsDone()== null) {
+                                        items.add(a.getDuty());
+                                    }
+                                    else{
+                                        if(a.getDuty().getIsDone().equals(false)) {
+                                            items.add(a.getDuty());
+                                        }
+                                    }
                                 }
                             }
                         }
                         final DutyListAdapter adapter = new DutyListAdapter(EmergencyDutiesListActivity.this, items);
                         ListView listView = (ListView) findViewById(R.id.listview);
                         listView.setAdapter(adapter);
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                                    long id) {
+                                Duty duty = adapter.getItem(position);
+                                TextView textView = (TextView) findViewById(R.id.txtdutyID);
+                                textView.setText(duty.getId() + "");
+                                Intent intent = new Intent(EmergencyDutiesListActivity.this, DutyDetailsActivity.class);
+                                intent.putExtra(ConstantsContainer.DUTY_ID, textView.getText().toString());
+                                startActivity(intent);
+                            }
+                        });
                     }
 
                     @Override

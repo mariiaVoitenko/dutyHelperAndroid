@@ -161,8 +161,15 @@ public class MainActivity extends ActionBarActivity {
                                 }
                                 Date now = new Date();
                                 Date dayPlus = new Date(now.getTime() + (1000 * 60 * 60 * 24));
-                                if (dayPlus.getTime() > date.getTime()) {
-                                    items.add(a.getDuty());
+                                if (dayPlus.getTime() > date.getTime() ) {
+                                    if (a.getDuty().getIsDone()== null) {
+                                        items.add(a.getDuty());
+                                    }
+                                    else{
+                                        if(a.getDuty().getIsDone().equals(false)) {
+                                            items.add(a.getDuty());
+                                        }
+                                    }
                                 }
                             }
                         }
