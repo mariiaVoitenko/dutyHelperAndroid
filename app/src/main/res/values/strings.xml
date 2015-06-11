@@ -18,11 +18,16 @@
     <string name="lostpassword">Restore password</string>
     <string name="registrate">Register</string>
     <string name="title_activity_duty">Duties</string>
-    <string name="isDone">Done</string>
-    <string name="isNotDone">Not done</string>
-    <string name="title_activity_emergency_duties_list">Emergency Duties</string>
-    <string name="title_activity_group_list">GroupListActivity</string>
-    <string name="title_activity_create_duty">CreateDutyActivity</string>
-    <string name="title_activity_duty_details">DutyDetailsActivity</string>
-    <string name="title_activity_create_duty_activity2">CreateDutyActivity2</string>
+    <string name="isDone">done</string>
+    <string name="isNotDone">not done</string>
+    <string name="title_activity_emergency_duties_list">Urgent Duties</string>
+    <string name="title_activity_group_list">Groups</string>
+    <string name="title_activity_create_duty">Create new duty</string>
+    <string name="title_activity_duty_details">Details</string>
+    <string name="no_description">"no description for this duty"</string>
+
+    <string-array name="done_states">
+        <item>done</item>
+        <item>not done</item>
+    </string-array>
 </resources>

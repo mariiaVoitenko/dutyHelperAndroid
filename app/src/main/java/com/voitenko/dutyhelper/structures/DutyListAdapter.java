@@ -48,11 +48,11 @@ public class DutyListAdapter extends ArrayAdapter<Duty> {
         if (itemsArrayList.get(position).getDescription() != null) {
             description.setText(itemsArrayList.get(position).getDescription().toString());
         } else {
-            description.setText("no description for this duty");
+            description.setText(R.string.no_description);
         }
         priority.setText(itemsArrayList.get(position).getPriority().getName());
         category.setText(itemsArrayList.get(position).getCategory().getName());
-        if (itemsArrayList.get(position).getIsDone() != null)
+        if (itemsArrayList.get(position).getIsDone() != null && !itemsArrayList.get(position).getIsDone().equals(false)   )
             isDone.setText(R.string.isDone);
         else isDone.setText(R.string.isNotDone);
 

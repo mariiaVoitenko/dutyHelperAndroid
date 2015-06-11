@@ -44,100 +44,9 @@ public class CreateDutyActivity extends ActionBarActivity {
         mCreateDutyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                EditText priority = (EditText) findViewById(R.id.create_priority);
-                EditText category = (EditText) findViewById(R.id.create_categoty);
-
-                ServiceGenerator serviceGenerator = new ServiceGenerator();
-                final CategoriesAPI categoriesAPI = serviceGenerator.createService(CategoriesAPI.class, ConstantsContainer.ENDPOINT);
-                final PrioritiesAPI prioritiesAPI = serviceGenerator.createService(PrioritiesAPI.class, ConstantsContainer.ENDPOINT);
-                final DutiesAPI dutiesAPI = serviceGenerator.createService(DutiesAPI.class, ConstantsContainer.ENDPOINT);
-                final String categoryName = category.getText().toString();
-                final String priorityName = priority.getText().toString();
-
-                categoriesAPI.getAll(
-                        new Callback<ArrayList<Category>>() {
-                            @Override
-                            public void success(ArrayList<Category> categories, Response response) {
-                                int idC = 0;
-                                String nameC = "";
-                                for (Category c : categories) {
-                                    if (c.getName().equals(categoryName)) {
-                                        idC = c.getId();
-                                        nameC = c.getName();
-
-                                    }
-                                }
-                                final String categoryName = nameC;
-                                final int categoryId = idC;
-                                prioritiesAPI.getAll(
-                                        new Callback<ArrayList<Priority>>() {
-                                            int id;
-                                            String name;
-
-                                            @Override
-                                            public void success(ArrayList<Priority> priorities, Response response) {
-                                                for (Priority p : priorities) {
-                                                    if (p.getName().equals(priorityName)) {
-                                                        id = p.getId();
-                                                        name = p.getName();
-                                                        Log.d("RESTOFIT_PRIORITY!!!!!", p.getName());
-                                                    }
-                                                }
-                                                Priority priority = new Priority(id, name);
-                                                Category category = new Category(categoryId, categoryName);
-
-                                                EditText dutyName = (EditText) findViewById(R.id.create_name);
-                                                EditText startDate = (EditText) findViewById(R.id.create_date_start);
-                                                EditText endDate = (EditText) findViewById(R.id.create_date_end);
-                                                EditText description = (EditText) findViewById(R.id.create_description);
-
-                                                Duty duty = new Duty(
-                                                        dutyName.getText().toString(),
-                                                        category,
-                                                        priority,
-                                                        description.getText().toString(),
-                                                        DataConverter.setRightTime(startDate.getText().toString()),
-                                                        DataConverter.setRightTime(endDate.getText().toString()),
-                                                        "false",
-                                                        "false"
-                                                );
-                                                dutiesAPI.setDuty(duty, new Callback<String>() {
-                                                    @Override
-                                                    public void success(String s, Response response) {
-                                                        Intent intent = new Intent(CreateDutyActivity.this, MainActivity.class);
-                                                        startActivity(intent);
-                                                        Log.d("DUTY_HAS_DONE!!!!!", "DONE");
-                                                    }
-
-                                                    @Override
-                                                    public void failure(RetrofitError error) {
-                                                        Log.d("RESTOFIT_ERROR!!!!!", error.getMessage());
-                                                    }
-                                                });
-                                            }
-
-                                            @Override
-                                            public void failure(RetrofitError error) {
-                                                Log.d("RESTOFIT_ERROR!!!!!", error.getMessage());
-                                            }
-
-
-                                        }
-                                );
-                            }
-
-                            @Override
-                            public void failure(RetrofitError error) {
-                                Log.d("RESTOFIT_ERROR!!!!!", error.getMessage());
-                            }
-
-
-                        }
-                );
+                createDuty();
             }
         });
-
     }
 
     @Override
@@ -175,5 +84,98 @@ public class CreateDutyActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createDuty(){
+        EditText priority = (EditText) findViewById(R.id.create_priority);
+        EditText category = (EditText) findViewById(R.id.create_categoty);
+
+        ServiceGenerator serviceGenerator = new ServiceGenerator();
+        final CategoriesAPI categoriesAPI = serviceGenerator.createService(CategoriesAPI.class, ConstantsContainer.ENDPOINT);
+        final PrioritiesAPI prioritiesAPI = serviceGenerator.createService(PrioritiesAPI.class, ConstantsContainer.ENDPOINT);
+        final DutiesAPI dutiesAPI = serviceGenerator.createService(DutiesAPI.class, ConstantsContainer.ENDPOINT);
+        final String categoryName = category.getText().toString();
+        final String priorityName = priority.getText().toString();
+
+        categoriesAPI.getAll(
+                new Callback<ArrayList<Category>>() {
+                    @Override
+                    public void success(ArrayList<Category> categories, Response response) {
+                        int idC = 0;
+                        String nameC = "";
+                        for (Category c : categories) {
+                            if (c.getName().equals(categoryName)) {
+                                idC = c.getId();
+                                nameC = c.getName();
+
+                            }
+                        }
+                        final String categoryName = nameC;
+                        final int categoryId = idC;
+                        prioritiesAPI.getAll(
+                                new Callback<ArrayList<Priority>>() {
+                                    int id;
+                                    String name;
+
+                                    @Override
+                                    public void success(ArrayList<Priority> priorities, Response response) {
+                                        for (Priority p : priorities) {
+                                            if (p.getName().equals(priorityName)) {
+                                                id = p.getId();
+                                                name = p.getName();
+                                                Log.d("RESTOFIT_PRIORITY!!!!!", p.getName());
+                                            }
+                                        }
+                                        Priority priority = new Priority(id, name);
+                                        Category category = new Category(categoryId, categoryName);
+
+                                        EditText dutyName = (EditText) findViewById(R.id.create_name);
+                                        EditText startDate = (EditText) findViewById(R.id.create_date_start);
+                                        EditText endDate = (EditText) findViewById(R.id.create_date_end);
+                                        EditText description = (EditText) findViewById(R.id.create_description);
+
+                                        Duty duty = new Duty(
+                                                dutyName.getText().toString(),
+                                                category,
+                                                priority,
+                                                description.getText().toString(),
+                                                DataConverter.setRightTime(startDate.getText().toString()),
+                                                DataConverter.setRightTime(endDate.getText().toString()),
+                                                "false",
+                                                "false"
+                                        );
+                                        dutiesAPI.setDuty(duty, new Callback<String>() {
+                                            @Override
+                                            public void success(String s, Response response) {
+                                                Intent intent = new Intent(CreateDutyActivity.this, MainActivity.class);
+                                                startActivity(intent);
+                                                Log.d("DUTY_HAS_DONE!!!!!", "DONE");
+                                            }
+
+                                            @Override
+                                            public void failure(RetrofitError error) {
+                                                Log.d("RESTOFIT_ERROR!!!!!", error.getMessage());
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+                                        Log.d("RESTOFIT_ERROR!!!!!", error.getMessage());
+                                    }
+
+
+                                }
+                        );
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("RESTOFIT_ERROR!!!!!", error.getMessage());
+                    }
+
+
+                }
+        );
     }
 }

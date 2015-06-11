@@ -187,15 +187,15 @@
             android:textSize="16sp"
             android:paddingTop="10dp"/>
 
-        <EditText
-            android:id="@+id/done_detail"
-            android:layout_width="fill_parent"
+        <Spinner
+            android:id="@+id/done_spinner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
             android:textStyle="italic"
-            android:text=""
             android:textColor="#4a4a4a"
-            android:textSize="16sp" />
+            android:textSize="16sp">
+        </Spinner>
+
     </LinearLayout>
     <Button
         android:id="@+id/save_duty_button"

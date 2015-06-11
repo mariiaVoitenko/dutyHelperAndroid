@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,10 +41,17 @@ public class DutyDetailsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_duty_details);
         final Button saveButton = (Button) findViewById(R.id.save_duty_button);
+        String[] doneStates = new String[]{"done", "not done"};
 
         final int dutyId = Integer.parseInt(getIntent().getStringExtra(ConstantsContainer.DUTY_ID));
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         final DutiesAPI dutiesAPI = serviceGenerator.createService(DutiesAPI.class, ConstantsContainer.ENDPOINT);
+
+        Spinner spinner = (Spinner) findViewById(R.id.done_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.done_states, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         dutiesAPI.getDuty(dutyId, new Callback<Duty>() {
             @Override
             public void success(Duty duty, Response response) {
@@ -52,7 +61,7 @@ public class DutyDetailsActivity extends ActionBarActivity {
                 TextView description = (TextView) findViewById(R.id.description_detail);
                 TextView priority = (TextView) findViewById(R.id.priority_detail);
                 TextView category = (TextView) findViewById(R.id.category_detail);
-                TextView isDone = (TextView) findViewById(R.id.done_detail);
+                Spinner isDone = (Spinner) findViewById(R.id.done_spinner);
                 name.setText(duty.getName());
                 startDate.setText(DataConverter.getTime(duty.getStartDate()));
                 endDate.setText(DataConverter.getTime(duty.getEndDate()));
@@ -63,9 +72,14 @@ public class DutyDetailsActivity extends ActionBarActivity {
                 }
                 priority.setText(duty.getPriority().getName());
                 category.setText(duty.getCategory().getName());
-                if (duty.getIsDone() != null)
-                    isDone.setText(duty.getIsDone().toString());
-                else isDone.setText("false");
+                if (duty.getIsDone() == null) {
+                    isDone.setSelection(1);
+                } else {
+                    if (duty.getIsDone().equals(false)) {
+                        isDone.setSelection(1);
+                    } else isDone.setSelection(0);
+
+                }
 
                 saveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -116,8 +130,10 @@ public class DutyDetailsActivity extends ActionBarActivity {
                                                         EditText startDate = (EditText) findViewById(R.id.date_start_detail);
                                                         EditText endDate = (EditText) findViewById(R.id.date_end_detail);
                                                         EditText description = (EditText) findViewById(R.id.description_detail);
-
-                                                        EditText isDone = (EditText) findViewById(R.id.done_detail);
+                                                        String done = "false";
+                                                        Spinner isDone = (Spinner) findViewById(R.id.done_spinner);
+                                                        if (isDone.getSelectedItem().toString().equals("done"))
+                                                            done = "true";
 
                                                         Duty editedDuty = new Duty(
                                                                 dutyId,
@@ -128,7 +144,7 @@ public class DutyDetailsActivity extends ActionBarActivity {
                                                                 DataConverter.setRightTime(startDate.getText().toString()),
                                                                 DataConverter.setRightTime(endDate.getText().toString()),
                                                                 "false",
-                                                                isDone.getText().toString()
+                                                                done
                                                         );
                                                         dutiesAPI.editDuty(editedDuty, new Callback<String>() {
                                                             @Override

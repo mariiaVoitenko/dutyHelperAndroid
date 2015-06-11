@@ -1,5 +1,7 @@
 package com.voitenko.dutyhelper.BL;
 
+import com.voitenko.dutyhelper.ConstantsContainer;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -71,8 +73,30 @@ public class DataConverter {
         int length = (int) file.length();
         byte[] bytes = new byte[length];
         FileInputStream in = new FileInputStream(file);
-            in.read(bytes);
-            in.close();
+        in.read(bytes);
+        in.close();
         return new String(bytes);
+    }
+
+    public static String getEmail() {
+        File file = new File(ConstantsContainer.FILEPATH);
+        String email = null;
+        try {
+            email = DataConverter.readFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return email;
+    }
+
+    public static int getId() {
+        File idFile = new File(ConstantsContainer.FILEPATH_ID);
+        int userId = 0;
+        try {
+            userId = Integer.parseInt(DataConverter.readFile(idFile));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return userId;
     }
 }

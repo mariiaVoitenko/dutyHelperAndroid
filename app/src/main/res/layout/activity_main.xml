@@ -14,20 +14,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/hello_world"
+        android:text=""
         android:textSize="30dp" />
 
     <Button
         android:id="@+id/duty_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create_duty"
-        android:visibility="invisible"/>
+        android:text="@string/create_duty" />
 
     <Button
         android:id="@+id/group_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create_group"
-        android:visibility="invisible"/>
+        android:text="@string/create_group" />
 </LinearLayout>

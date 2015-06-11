@@ -1,5 +1,7 @@
 package com.voitenko.dutyhelper.activities;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,7 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.support.v4.app.NotificationCompat;
 
 import com.voitenko.dutyhelper.API.AppointmentAPI;
 import com.voitenko.dutyhelper.BL.DataConverter;
@@ -42,6 +44,8 @@ public class EmergencyDutiesListActivity extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         final AppointmentAPI appointmentAPI = serviceGenerator.createService(AppointmentAPI.class, ConstantsContainer.ENDPOINT);
         appointmentAPI.getAll(
@@ -51,7 +55,6 @@ public class EmergencyDutiesListActivity extends ActionBarActivity {
                         ArrayList<Duty> items = new ArrayList<>();
                         for (Appointment a : result) {
                             if (a.getUser().getId().equals(userId)) {
-                                Log.d("!!!DATE_ERROR!!!!!", DataConverter.getDate(a.getDuty().getEndDate()));
                                 Date date = null;
                                 try {
                                     date = DataConverter.parseDate(DataConverter.getDate(a.getDuty().getEndDate()));
