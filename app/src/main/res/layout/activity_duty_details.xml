@@ -133,16 +133,14 @@
             android:textSize="16sp"
             android:paddingTop="10dp"/>
 
-        <EditText
-            android:id="@+id/category_detail"
-            android:layout_width="fill_parent"
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text=""
             android:textStyle="italic"
             android:textColor="#4a4a4a"
-
-            android:textSize="16sp" />
+            android:textSize="16sp">
+        </Spinner>
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -160,16 +158,14 @@
             android:textColor="#4a4a4a"
             android:textSize="16sp"
             android:paddingTop="10dp"/>
-        <EditText
-            android:id="@+id/priority_detail"
-            android:layout_width="fill_parent"
+        <Spinner
+            android:id="@+id/priority_spinner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/date"
-            android:text=""
             android:textStyle="italic"
             android:textColor="#4a4a4a"
-            android:layout_gravity="left"
-            android:textSize="16sp" />
+            android:textSize="16sp">
+        </Spinner>
     </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"

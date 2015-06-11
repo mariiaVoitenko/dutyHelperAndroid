@@ -31,60 +31,14 @@ import retrofit.client.Response;
 
 
 public class DutiesListActivity extends ActionBarActivity {
-    ArrayList<Duty> duties;
-    List<Appointment> appointments = new ArrayList<>();
     int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_duty);
-        File file = new File(ConstantsContainer.FILEPATH_ID);
-        try {
-            userId = Integer.parseInt(DataConverter.readFile(file));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        ServiceGenerator serviceGenerator = new ServiceGenerator();
-        final AppointmentAPI appointmentAPI = serviceGenerator.createService(AppointmentAPI.class, ConstantsContainer.ENDPOINT);
-        appointmentAPI.getAll(
-                new Callback<ArrayList<Appointment>>() {
-                    @Override
-                    public void success(ArrayList<Appointment> result, Response response) {
-                        ArrayList<Duty> items = new ArrayList<>();
-                        for (Appointment a : result) {
-                            if (a.getUser().getId().equals(userId)) {
-                                items.add(a.getDuty());
-                            }
-                        }
-                        final DutyListAdapter dutyAdapter = new DutyListAdapter(DutiesListActivity.this, items);
-                        ListView dutiesListView = (ListView) findViewById(R.id.listview);
-                        dutiesListView.setAdapter(dutyAdapter);
-
-                        dutiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                                    long id) {
-                                Duty duty = dutyAdapter.getItem(position);
-                                TextView textView=(TextView)findViewById(R.id.txtdutyID);
-                                textView.setText(duty.getId()+"");
-                                Intent intent = new Intent(DutiesListActivity.this, DutyDetailsActivity.class);
-                                intent.putExtra(ConstantsContainer.DUTY_ID, textView.getText().toString());
-                                startActivity(intent);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d("!!!RESTOFIT_ERROR!!!!!", error.getMessage());
-                    }
-                }
-        );
-
-
+        userId = DataConverter.getId();
+        getDutiesList();
     }
 
     @Override
@@ -126,5 +80,44 @@ public class DutiesListActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void getDutiesList() {
+        ServiceGenerator serviceGenerator = new ServiceGenerator();
+        final AppointmentAPI appointmentAPI = serviceGenerator.createService(AppointmentAPI.class, ConstantsContainer.ENDPOINT);
+        appointmentAPI.getAll(
+                new Callback<ArrayList<Appointment>>() {
+                    @Override
+                    public void success(ArrayList<Appointment> result, Response response) {
+                        ArrayList<Duty> items = new ArrayList<>();
+                        for (Appointment a : result) {
+                            if (a.getUser().getId().equals(userId)) {
+                                items.add(a.getDuty());
+                            }
+                        }
+                        final DutyListAdapter dutyAdapter = new DutyListAdapter(DutiesListActivity.this, items);
+                        ListView dutiesListView = (ListView) findViewById(R.id.listview);
+                        dutiesListView.setAdapter(dutyAdapter);
+
+                        dutiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                                    long id) {
+                                Duty duty = dutyAdapter.getItem(position);
+                                TextView textView = (TextView) findViewById(R.id.txtdutyID);
+                                textView.setText(duty.getId() + "");
+                                Intent intent = new Intent(DutiesListActivity.this, DutyDetailsActivity.class);
+                                intent.putExtra(ConstantsContainer.DUTY_ID, textView.getText().toString());
+                                startActivity(intent);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("!!!RESTOFIT_ERROR!!!!!", error.getMessage());
+                    }
+                }
+        );
     }
 }

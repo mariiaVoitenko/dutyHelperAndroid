@@ -20,8 +20,6 @@ import com.voitenko.dutyhelper.models.Appointment;
 import com.voitenko.dutyhelper.models.Duty;
 import com.voitenko.dutyhelper.structures.DutyListAdapter;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,47 +36,8 @@ public class EmergencyDutiesListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency_duties_list);
-        File file = new File(ConstantsContainer.FILEPATH_ID);
-        try {
-            userId = Integer.parseInt(DataConverter.readFile(file));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        ServiceGenerator serviceGenerator = new ServiceGenerator();
-        final AppointmentAPI appointmentAPI = serviceGenerator.createService(AppointmentAPI.class, ConstantsContainer.ENDPOINT);
-        appointmentAPI.getAll(
-                new Callback<ArrayList<Appointment>>() {
-                    @Override
-                    public void success(ArrayList<Appointment> result, Response response) {
-                        ArrayList<Duty> items = new ArrayList<>();
-                        for (Appointment a : result) {
-                            if (a.getUser().getId().equals(userId)) {
-                                Date date = null;
-                                try {
-                                    date = DataConverter.parseDate(DataConverter.getDate(a.getDuty().getEndDate()));
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                                Date now = new Date();
-                                Date dayPlus = new Date(now.getTime() + (1000 * 60 * 60 * 24));
-                                if (dayPlus.getTime() > date.getTime()) {
-                                    items.add(a.getDuty());
-                                }
-                            }
-                        }
-                        final DutyListAdapter adapter = new DutyListAdapter(EmergencyDutiesListActivity.this, items);
-                        ListView listView = (ListView) findViewById(R.id.listview);
-                        listView.setAdapter(adapter);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d("!!!RESTOFIT_ERROR!!!!!", error.getMessage());
-                    }
-                }
-        );
+        userId = DataConverter.getId();
+        getUrgentDuties();
     }
 
     @Override
@@ -122,5 +81,41 @@ public class EmergencyDutiesListActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void getUrgentDuties() {
+        ServiceGenerator serviceGenerator = new ServiceGenerator();
+        final AppointmentAPI appointmentAPI = serviceGenerator.createService(AppointmentAPI.class, ConstantsContainer.ENDPOINT);
+        appointmentAPI.getAll(
+                new Callback<ArrayList<Appointment>>() {
+                    @Override
+                    public void success(ArrayList<Appointment> result, Response response) {
+                        ArrayList<Duty> items = new ArrayList<>();
+                        for (Appointment a : result) {
+                            if (a.getUser().getId().equals(userId)) {
+                                Date date = null;
+                                try {
+                                    date = DataConverter.parseDate(DataConverter.getDate(a.getDuty().getEndDate()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                Date now = new Date();
+                                Date dayPlus = new Date(now.getTime() + (1000 * 60 * 60 * 24));
+                                if (dayPlus.getTime() > date.getTime()) {
+                                    items.add(a.getDuty());
+                                }
+                            }
+                        }
+                        final DutyListAdapter adapter = new DutyListAdapter(EmergencyDutiesListActivity.this, items);
+                        ListView listView = (ListView) findViewById(R.id.listview);
+                        listView.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("!!!RESTOFIT_ERROR!!!!!", error.getMessage());
+                    }
+                }
+        );
     }
 }

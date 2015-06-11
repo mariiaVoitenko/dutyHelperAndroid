@@ -12,9 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.voitenko.dutyhelper.API.AppointmentAPI;
 import com.voitenko.dutyhelper.API.CategoriesAPI;
 import com.voitenko.dutyhelper.API.DutiesAPI;
 import com.voitenko.dutyhelper.API.PrioritiesAPI;
@@ -41,17 +38,30 @@ public class DutyDetailsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_duty_details);
         final Button saveButton = (Button) findViewById(R.id.save_duty_button);
-        String[] doneStates = new String[]{"done", "not done"};
 
         final int dutyId = Integer.parseInt(getIntent().getStringExtra(ConstantsContainer.DUTY_ID));
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         final DutiesAPI dutiesAPI = serviceGenerator.createService(DutiesAPI.class, ConstantsContainer.ENDPOINT);
 
-        Spinner spinner = (Spinner) findViewById(R.id.done_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        Spinner isDoneSpinner = (Spinner) findViewById(R.id.done_spinner);
+        Spinner categoriesSpinner = (Spinner) findViewById(R.id.category_spinner);
+        Spinner prioritySpinner = (Spinner) findViewById(R.id.priority_spinner);
+
+        ArrayAdapter<CharSequence> isDoneAdapter = ArrayAdapter.createFromResource(this,
                 R.array.done_states, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        isDoneAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        isDoneSpinner.setAdapter(isDoneAdapter);
+
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this,
+                R.array.categories, android.R.layout.simple_spinner_item);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoriesSpinner.setAdapter(categoryAdapter);
+
+        final ArrayAdapter<CharSequence> priorityAdapter = ArrayAdapter.createFromResource(this,
+                R.array.priorities, android.R.layout.simple_spinner_item);
+        priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        prioritySpinner.setAdapter(priorityAdapter);
+
         dutiesAPI.getDuty(dutyId, new Callback<Duty>() {
             @Override
             public void success(Duty duty, Response response) {
@@ -59,8 +69,8 @@ public class DutyDetailsActivity extends ActionBarActivity {
                 TextView startDate = (TextView) findViewById(R.id.date_start_detail);
                 TextView endDate = (TextView) findViewById(R.id.date_end_detail);
                 TextView description = (TextView) findViewById(R.id.description_detail);
-                TextView priority = (TextView) findViewById(R.id.priority_detail);
-                TextView category = (TextView) findViewById(R.id.category_detail);
+                Spinner categoriesSpinner = (Spinner) findViewById(R.id.category_spinner);
+                Spinner prioritySpinner = (Spinner) findViewById(R.id.priority_spinner);
                 Spinner isDone = (Spinner) findViewById(R.id.done_spinner);
                 name.setText(duty.getName());
                 startDate.setText(DataConverter.getTime(duty.getStartDate()));
@@ -70,8 +80,22 @@ public class DutyDetailsActivity extends ActionBarActivity {
                 } else {
                     description.setText("no description for this duty");
                 }
-                priority.setText(duty.getPriority().getName());
-                category.setText(duty.getCategory().getName());
+                switch (duty.getPriority().getName()){
+                    case "high":prioritySpinner.setSelection(0);
+                        break;
+                    case "medium":prioritySpinner.setSelection(1);
+                        break;
+                    case "low":prioritySpinner.setSelection(2);
+                        break;
+                }
+                switch (duty.getCategory().getName()){
+                    case "householding":categoriesSpinner.setSelection(0);
+                        break;
+                    case "work":categoriesSpinner.setSelection(1);
+                        break;
+                    case "shopping":categoriesSpinner.setSelection(2);
+                        break;
+                }
                 if (duty.getIsDone() == null) {
                     isDone.setSelection(1);
                 } else {
@@ -84,43 +108,41 @@ public class DutyDetailsActivity extends ActionBarActivity {
                 saveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EditText priority = (EditText) findViewById(R.id.priority_detail);
-                        EditText category = (EditText) findViewById(R.id.category_detail);
+                        Spinner categoriesSpinner = (Spinner) findViewById(R.id.category_spinner);
+                        Spinner prioritySpinner = (Spinner) findViewById(R.id.priority_spinner);
 
                         ServiceGenerator serviceGenerator = new ServiceGenerator();
                         final CategoriesAPI categoriesAPI = serviceGenerator.createService(CategoriesAPI.class, ConstantsContainer.ENDPOINT);
                         final PrioritiesAPI prioritiesAPI = serviceGenerator.createService(PrioritiesAPI.class, ConstantsContainer.ENDPOINT);
                         final DutiesAPI dutiesAPI = serviceGenerator.createService(DutiesAPI.class, ConstantsContainer.ENDPOINT);
-                        final String categoryName = category.getText().toString();
-                        final String priorityName = priority.getText().toString();
+                        final String categoryName = categoriesSpinner.getSelectedItem().toString();
+                        final String priorityName = prioritySpinner.getSelectedItem().toString();
 
                         categoriesAPI.getAll(
                                 new Callback<ArrayList<Category>>() {
                                     @Override
                                     public void success(ArrayList<Category> categories, Response response) {
-                                        int idC = 0;
-                                        String nameC = "";
+                                        int currentCategoryId = 0;
+                                        String currentCategoryName = "";
                                         for (Category c : categories) {
                                             if (c.getName().equals(categoryName)) {
-                                                idC = c.getId();
-                                                nameC = c.getName();
+                                                currentCategoryId = c.getId();
+                                                currentCategoryName = c.getName();
 
                                             }
                                         }
-                                        final String categoryName = nameC;
-                                        final int categoryId = idC;
+                                        final String categoryName = currentCategoryName;
+                                        final int categoryId = currentCategoryId;
                                         prioritiesAPI.getAll(
                                                 new Callback<ArrayList<Priority>>() {
                                                     int id;
                                                     String name;
-
                                                     @Override
                                                     public void success(ArrayList<Priority> priorities, Response response) {
                                                         for (Priority p : priorities) {
                                                             if (p.getName().equals(priorityName)) {
                                                                 id = p.getId();
                                                                 name = p.getName();
-                                                                Log.d("RESTOFIT_PRIORITY!!!!!", p.getName());
                                                             }
                                                         }
                                                         Priority priority = new Priority(id, name);
@@ -149,7 +171,7 @@ public class DutyDetailsActivity extends ActionBarActivity {
                                                         dutiesAPI.editDuty(editedDuty, new Callback<String>() {
                                                             @Override
                                                             public void success(String s, Response response) {
-                                                                Log.d("DUTY_HAS_DONE!!!!!", "DONE");
+                                                                Log.d("DUTY_EDITED!!!!!", "DONE");
                                                             }
 
                                                             @Override
@@ -167,7 +189,6 @@ public class DutyDetailsActivity extends ActionBarActivity {
 
                                                     }
                                                 });
-
                                     }
 
                                     @Override
@@ -226,5 +247,13 @@ public class DutyDetailsActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void editDuty(){
+
+    }
+
+    private void getDuty(){
+
     }
 }
