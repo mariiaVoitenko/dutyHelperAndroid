@@ -78,6 +78,7 @@ public class RPLoginActivity extends Activity {
         mCallbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_login);
 
+        mGoToMainButton = (Button) findViewById(R.id.gotomain_button);
         mFbLoginButton = (LoginButton) findViewById(R.id.login_button);
         mRegisterButton = (Button) findViewById(R.id.registrate);
         mRestorePasswordButton = (Button) findViewById(R.id.lostpassword);
@@ -141,7 +142,6 @@ public class RPLoginActivity extends Activity {
             }
         });
 
-        mGoToMainButton = (Button) findViewById(R.id.gotomain_button);
         mGoToMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
