@@ -15,6 +15,7 @@ import com.voitenko.dutyhelper.API.CategoriesAPI;
 import com.voitenko.dutyhelper.API.DutiesAPI;
 import com.voitenko.dutyhelper.API.PrioritiesAPI;
 import com.voitenko.dutyhelper.API.UsersAPI;
+import com.voitenko.dutyhelper.BL.DataConverter;
 import com.voitenko.dutyhelper.BL.ServiceGenerator;
 import com.voitenko.dutyhelper.ConstantsContainer;
 import com.voitenko.dutyhelper.R;
@@ -96,11 +97,11 @@ public class CreateDutyActivity extends ActionBarActivity {
                                                         category,
                                                         priority,
                                                         description.getText().toString(),
-                                                        startDate.getText().toString(),
-                                                        endDate.getText().toString(),
-                                                        "false",
-                                                        "false"
-                                                );
+                                                        DataConverter.setRightTime(startDate.getText().toString()),
+                                                        DataConverter.setRightTime(endDate.getText().toString()),
+                                                                "false",
+                                                                "false"
+                                                        );
                                                 dutiesAPI.setDuty(duty, new Callback<String>() {
                                                     @Override
                                                     public void success(String s, Response response) {

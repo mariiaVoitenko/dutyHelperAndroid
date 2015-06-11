@@ -43,6 +43,12 @@ public class DataConverter {
         return sb.toString();
     }
 
+    public static String setRightTime(String time) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(time.substring(0, 10)).append("T").append(time.substring(11, 16)).append(":00").append("Z");
+        return sb.toString();
+    }
+
     public static String getDate(String time) {
         StringBuilder sb = new StringBuilder();
         sb.append(time.substring(0, 10));

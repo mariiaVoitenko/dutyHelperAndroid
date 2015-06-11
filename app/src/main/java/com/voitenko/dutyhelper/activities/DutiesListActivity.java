@@ -6,26 +6,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.voitenko.dutyhelper.API.AppointmentAPI;
-import com.voitenko.dutyhelper.API.DutiesAPI;
-import com.voitenko.dutyhelper.API.UsersAPI;
 import com.voitenko.dutyhelper.BL.DataConverter;
 import com.voitenko.dutyhelper.BL.ServiceGenerator;
 import com.voitenko.dutyhelper.ConstantsContainer;
 import com.voitenko.dutyhelper.R;
 import com.voitenko.dutyhelper.models.Appointment;
 import com.voitenko.dutyhelper.models.Duty;
-import com.voitenko.dutyhelper.models.User;
 import com.voitenko.dutyhelper.structures.DutyListAdapter;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,9 +59,22 @@ public class DutiesListActivity extends ActionBarActivity {
                                 items.add(a.getDuty());
                             }
                         }
-                        final DutyListAdapter adapter = new DutyListAdapter(DutiesListActivity.this, items);
-                        ListView listView = (ListView) findViewById(R.id.listview);
-                        listView.setAdapter(adapter);
+                        final DutyListAdapter dutyAdapter = new DutyListAdapter(DutiesListActivity.this, items);
+                        ListView dutiesListView = (ListView) findViewById(R.id.listview);
+                        dutiesListView.setAdapter(dutyAdapter);
+
+                        dutiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                                    long id) {
+                                Duty duty = dutyAdapter.getItem(position);
+                                TextView textView=(TextView)findViewById(R.id.txtdutyID);
+                                textView.setText(duty.getId()+"");
+                                Intent intent = new Intent(DutiesListActivity.this, DutyDetailsActivity.class);
+                                intent.putExtra(ConstantsContainer.DUTY_ID, textView.getText().toString());
+                                startActivity(intent);
+                            }
+                        });
                     }
 
                     @Override
@@ -74,6 +83,8 @@ public class DutiesListActivity extends ActionBarActivity {
                     }
                 }
         );
+
+
     }
 
     @Override

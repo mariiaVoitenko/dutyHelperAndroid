@@ -35,7 +35,34 @@ public class Duty {
 
     }
 
+    @Override
+    public String toString() {
+        return "Duty{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description=" + description +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", canChange=" + canChange +
+                ", isDone=" + isDone +
+                ", priority=" + priority +
+                ", category=" + category +
+                '}';
+    }
+
     public Duty(String name, Category category, Priority priority, String description, String startDate, String endDate, String canChange, String isDone) {
+        this.name = name;
+        this.category = category;
+        this.priority = priority;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.canChange = canChange;
+        this.isDone = isDone;
+    }
+
+    public Duty(int id,String name, Category category, Priority priority, String description, String startDate, String endDate, String canChange, String isDone) {
+        this.id=id;
         this.name = name;
         this.category = category;
         this.priority = priority;

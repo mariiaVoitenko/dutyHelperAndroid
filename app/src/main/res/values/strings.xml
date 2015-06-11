@@ -9,6 +9,7 @@
     <string name="default_greetings">Log in, please</string>
     <string name="gotomain">Go to main screen</string>
     <string name="create_duty">Create duty</string>
+    <string name="save_duty">Save duty</string>
     <string name="create_group">Create group</string>
     <string name="action_groups">Show groups</string>
     <string name="action_home">Home</string>
@@ -22,4 +23,5 @@
     <string name="title_activity_emergency_duties_list">Emergency Duties</string>
     <string name="title_activity_group_list">GroupListActivity</string>
     <string name="title_activity_create_duty">CreateDutyActivity</string>
+    <string name="title_activity_duty_details">DutyDetailsActivity</string>
 </resources>

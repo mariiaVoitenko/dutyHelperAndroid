@@ -50,6 +50,10 @@
             android:name=".activities.CreateDutyActivity"
             android:label="@string/title_activity_create_duty" >
         </activity>
+        <activity
+            android:name=".activities.DutyDetailsActivity"
+            android:label="@string/title_activity_duty_details" >
+        </activity>
     </application>
 
 </manifest>
