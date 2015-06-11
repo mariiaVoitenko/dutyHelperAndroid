@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -44,6 +45,8 @@ public class RPLoginActivity extends Activity {
     //facebook callbacks manager
     private CallbackManager mCallbackManager;
     private Button mGoToMainButton;
+    private Button mRegisterButton;
+    private Button mRestorePasswordButton;
     private LoginButton mFbLoginButton;
 
     private FacebookCallback<LoginResult> mCallback = new FacebookCallback<LoginResult>() {
@@ -76,8 +79,19 @@ public class RPLoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         mFbLoginButton = (LoginButton) findViewById(R.id.login_button);
+        mRegisterButton = (Button) findViewById(R.id.registrate);
+        mRestorePasswordButton = (Button) findViewById(R.id.lostpassword);
+
+        if (UserManager.isProfileValid(RPLoginActivity.this)) {
+            mRegisterButton.setVisibility(View.GONE);
+            mRestorePasswordButton.setVisibility(View.GONE);
+        }
+        else{
+            mRegisterButton.setVisibility(View.VISIBLE);
+            mRestorePasswordButton.setVisibility(View.VISIBLE);
+        }
+
         mFbLoginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday, user_friends"));
-       // mFbLoginButton.registerCallback(mCallbackManager, mCallback);
         // Callback registration
         mFbLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -137,6 +151,24 @@ public class RPLoginActivity extends Activity {
                 } else {
                     startActivity(new Intent(RPLoginActivity.this, MainActivity.class));
                 }
+            }
+        });
+
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uriUrl = Uri.parse(ConstantsContainer.REGISTER_LINK);
+                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                startActivity(launchBrowser);
+            }
+        });
+
+        mRestorePasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uriUrl = Uri.parse(ConstantsContainer.RESTORE_PASSWORD_LINK);
+                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                startActivity(launchBrowser);
             }
         });
 

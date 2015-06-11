@@ -15,8 +15,8 @@
     <string name="action_home">Home</string>
     <string name="action_duties">Duties</string>
     <string name="action_emergency_duties">Urgent Duties</string>
-    <string name="lostpassword">Lost password? <a href="http://www.google.com">DutyHelper on web</a></string>
-    <string name="registrate">If you don\'t have account please go to <a href="http://www.google.com">our website</a></string>
+    <string name="lostpassword">Restore password</string>
+    <string name="registrate">Register</string>
     <string name="title_activity_duty">Duties</string>
     <string name="isDone">Done</string>
     <string name="isNotDone">Not done</string>
@@ -24,4 +24,5 @@
     <string name="title_activity_group_list">GroupListActivity</string>
     <string name="title_activity_create_duty">CreateDutyActivity</string>
     <string name="title_activity_duty_details">DutyDetailsActivity</string>
+    <string name="title_activity_create_duty_activity2">CreateDutyActivity2</string>
 </resources>

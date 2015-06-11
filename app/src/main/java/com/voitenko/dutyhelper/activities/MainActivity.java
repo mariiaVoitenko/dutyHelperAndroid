@@ -85,8 +85,7 @@ public class MainActivity extends ActionBarActivity {
         mCreateDutyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent create = new Intent(MainActivity.this, CreateDutyActivity.class);
-                startActivity(create);
+                startActivity(new Intent(MainActivity.this, CreateDutyActivity.class));
             }
         });
     }

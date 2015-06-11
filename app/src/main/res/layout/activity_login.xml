@@ -26,8 +26,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp" />
-    <TextView
-        android:id="@+id/txtLostpassword"
+    <Button
+        android:id="@+id/lostpassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -37,8 +37,8 @@
         android:text="@string/lostpassword"
         android:linksClickable="true"/>
 
-    <TextView
-        android:id="@+id/txtRegistrate"
+    <Button
+        android:id="@+id/registrate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

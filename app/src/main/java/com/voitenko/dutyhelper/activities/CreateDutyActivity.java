@@ -99,12 +99,14 @@ public class CreateDutyActivity extends ActionBarActivity {
                                                         description.getText().toString(),
                                                         DataConverter.setRightTime(startDate.getText().toString()),
                                                         DataConverter.setRightTime(endDate.getText().toString()),
-                                                                "false",
-                                                                "false"
-                                                        );
+                                                        "false",
+                                                        "false"
+                                                );
                                                 dutiesAPI.setDuty(duty, new Callback<String>() {
                                                     @Override
                                                     public void success(String s, Response response) {
+                                                        Intent intent = new Intent(CreateDutyActivity.this, MainActivity.class);
+                                                        startActivity(intent);
                                                         Log.d("DUTY_HAS_DONE!!!!!", "DONE");
                                                     }
 
@@ -135,14 +137,12 @@ public class CreateDutyActivity extends ActionBarActivity {
                 );
             }
         });
-        Intent intent = new Intent(CreateDutyActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_create_duty, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
