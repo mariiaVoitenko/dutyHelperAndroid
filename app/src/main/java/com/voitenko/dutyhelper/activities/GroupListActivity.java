@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.voitenko.dutyhelper.API.AppointmentAPI;
 import com.voitenko.dutyhelper.API.MembershipAPI;
+import com.voitenko.dutyhelper.BL.DataConverter;
 import com.voitenko.dutyhelper.BL.ServiceGenerator;
 import com.voitenko.dutyhelper.ConstantsContainer;
 import com.voitenko.dutyhelper.R;
@@ -22,6 +23,8 @@ import com.voitenko.dutyhelper.models.User;
 import com.voitenko.dutyhelper.structures.DutyListAdapter;
 import com.voitenko.dutyhelper.structures.GroupListAdapter;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,15 +37,17 @@ public class GroupListActivity extends ActionBarActivity {
 
     int userId;
     List<Membership> memberships = new ArrayList<>();
-    TextView mIDTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_list);
-        mIDTextView = (TextView) findViewById(R.id.txtgroupID);
-        userId = Integer.parseInt(getIntent().getExtras().getString(ConstantsContainer.USER_ID));
-        mIDTextView.setText(Integer.toString(userId));
+        File file = new File(ConstantsContainer.FILEPATH_ID);
+        try {
+            userId = Integer.parseInt(DataConverter.readFile(file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         getIntent().putExtra(ConstantsContainer.USER_ID,userId);
 
         ServiceGenerator serviceGenerator = new ServiceGenerator();
@@ -88,25 +93,19 @@ public class GroupListActivity extends ActionBarActivity {
             return true;
         }
         if (id == R.id.action_duties) {
-            TextView mIDTextView = (TextView) findViewById(R.id.txtgroupID);
             Intent intent = new Intent(GroupListActivity.this, DutiesListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_home) {
-            TextView mIDTextView = (TextView) findViewById(R.id.txtgroupID);
             Intent intent = new Intent(GroupListActivity.this, MainActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_emergency) {
-            TextView mIDTextView = (TextView) findViewById(R.id.txtgroupID);
             Intent intent = new Intent(GroupListActivity.this, EmergencyDutiesListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;

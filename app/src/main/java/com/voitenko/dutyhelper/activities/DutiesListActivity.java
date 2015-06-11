@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.voitenko.dutyhelper.API.AppointmentAPI;
 import com.voitenko.dutyhelper.API.DutiesAPI;
 import com.voitenko.dutyhelper.API.UsersAPI;
+import com.voitenko.dutyhelper.BL.DataConverter;
 import com.voitenko.dutyhelper.BL.ServiceGenerator;
 import com.voitenko.dutyhelper.ConstantsContainer;
 import com.voitenko.dutyhelper.R;
@@ -22,6 +23,7 @@ import com.voitenko.dutyhelper.models.User;
 import com.voitenko.dutyhelper.structures.DutyListAdapter;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -33,19 +35,21 @@ import retrofit.client.Response;
 
 
 public class DutiesListActivity extends ActionBarActivity {
-    int userId;
     ArrayList<Duty> duties;
     List<Appointment> appointments = new ArrayList<>();
-    TextView mIDTextView;
+    int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_duty);
-        mIDTextView = (TextView) findViewById(R.id.txtdutyID);
-        userId = Integer.parseInt(getIntent().getExtras().getString(ConstantsContainer.USER_ID));
-        mIDTextView.setText(Integer.toString(userId));
-        getIntent().putExtra(ConstantsContainer.USER_ID,userId);
+        File file = new File(ConstantsContainer.FILEPATH_ID);
+        try {
+            userId = Integer.parseInt(DataConverter.readFile(file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         final AppointmentAPI appointmentAPI = serviceGenerator.createService(AppointmentAPI.class, ConstantsContainer.ENDPOINT);
@@ -84,7 +88,6 @@ public class DutiesListActivity extends ActionBarActivity {
 
         if (id == R.id.action_logout) {
             Intent intent = new Intent(DutiesListActivity.this, RPLoginActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, userId);
             startActivity(intent);
             finish();
             return true;
@@ -93,25 +96,19 @@ public class DutiesListActivity extends ActionBarActivity {
             return true;
         }
         if (id == R.id.action_emergency) {
-            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
             Intent intent = new Intent(DutiesListActivity.this, EmergencyDutiesListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_home) {
-            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
             Intent intent = new Intent(DutiesListActivity.this, EmergencyDutiesListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_groups) {
-            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
             Intent intent = new Intent(DutiesListActivity.this, GroupListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;

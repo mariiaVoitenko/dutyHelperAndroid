@@ -35,8 +35,6 @@ import retrofit.client.Response;
 public class MainActivity extends ActionBarActivity {
     private Button mCreateGroupButton;
     private Button mCreateDutyButton;
-    private int userId;
-    TextView mIDTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,22 +60,19 @@ public class MainActivity extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //
-        Toast toast = Toast.makeText(getApplicationContext(),
-                email, Toast.LENGTH_SHORT);
-        toast.show();
-        //
 
-        userId = 4;
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         UsersAPI usersAPI = serviceGenerator.createService(UsersAPI.class, ConstantsContainer.ENDPOINT);
 
-        usersAPI.getUser(userId, new Callback<User>() {
+        usersAPI.getUserByEmail(email,new Callback<User>() {
                     @Override
                     public void success(User user, Response response) {
-                        mIDTextView = (TextView) findViewById(R.id.txtID);
-                        mIDTextView.setText(user.getId().toString());
-                        getIntent().putExtra(ConstantsContainer.USER_ID, user.getId());
+                        File idFile = new File(ConstantsContainer.FILEPATH_ID);
+                        try {
+                            DataConverter.writeFile(user.getId().toString(),idFile);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
@@ -91,8 +86,6 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent create = new Intent(MainActivity.this, CreateDutyActivity.class);
-                mIDTextView = (TextView) findViewById(R.id.txtID);
-                create.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
                 startActivity(create);
             }
         });
@@ -115,25 +108,19 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
         if (id == R.id.action_duties) {
-            mIDTextView = (TextView) findViewById(R.id.txtID);
             Intent intent = new Intent(MainActivity.this, DutiesListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_emergency) {
-            mIDTextView = (TextView) findViewById(R.id.txtID);
             Intent intent = new Intent(MainActivity.this, EmergencyDutiesListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_groups) {
-            mIDTextView = (TextView) findViewById(R.id.txtID);
             Intent intent = new Intent(MainActivity.this, GroupListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;

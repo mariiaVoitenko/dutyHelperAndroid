@@ -18,6 +18,8 @@ import com.voitenko.dutyhelper.models.Appointment;
 import com.voitenko.dutyhelper.models.Duty;
 import com.voitenko.dutyhelper.structures.DutyListAdapter;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,15 +31,17 @@ import retrofit.client.Response;
 
 public class EmergencyDutiesListActivity extends ActionBarActivity {
     int userId;
-    TextView mIDTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency_duties_list);
-        mIDTextView = (TextView) findViewById(R.id.txtdutyID);
-        userId = Integer.parseInt(getIntent().getExtras().getString(ConstantsContainer.USER_ID));
-        mIDTextView.setText(Integer.toString(userId));
+        File file = new File(ConstantsContainer.FILEPATH_ID);
+        try {
+            userId = Integer.parseInt(DataConverter.readFile(file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         final AppointmentAPI appointmentAPI = serviceGenerator.createService(AppointmentAPI.class, ConstantsContainer.ENDPOINT);
         appointmentAPI.getAll(
@@ -91,33 +95,25 @@ public class EmergencyDutiesListActivity extends ActionBarActivity {
             return true;
         }
         if (id == R.id.action_duties) {
-            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
             Intent intent = new Intent(EmergencyDutiesListActivity.this, DutiesListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_home) {
-            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
             Intent intent = new Intent(EmergencyDutiesListActivity.this, MainActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_groups) {
-            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
             Intent intent = new Intent(EmergencyDutiesListActivity.this, GroupListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_emergency) {
-            mIDTextView = (TextView) findViewById(R.id.txtdutyID);
             Intent intent = new Intent(EmergencyDutiesListActivity.this, GroupListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;

@@ -171,17 +171,6 @@
             android:layout_gravity="left"
             android:textSize="16sp" />
     </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/txtcreatedutyID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:padding="20px"
-        android:text=""
-        android:visibility="invisible"/>
     <Button
         android:id="@+id/create_duty_button"
         android:layout_width="match_parent"

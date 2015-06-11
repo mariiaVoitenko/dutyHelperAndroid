@@ -32,8 +32,6 @@ import retrofit.client.Response;
 
 
 public class CreateDutyActivity extends ActionBarActivity {
-    TextView mIDTextView;
-    int userId;
     Button mCreateDutyButton;
 
     @Override
@@ -45,9 +43,6 @@ public class CreateDutyActivity extends ActionBarActivity {
         mCreateDutyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mIDTextView = (TextView) findViewById(R.id.txtcreatedutyID);
-                userId = Integer.parseInt(getIntent().getExtras().getString(ConstantsContainer.USER_ID));
-                mIDTextView.setText(Integer.toString(userId));
 
                 EditText priority = (EditText) findViewById(R.id.create_priority);
                 EditText category = (EditText) findViewById(R.id.create_categoty);
@@ -160,25 +155,19 @@ public class CreateDutyActivity extends ActionBarActivity {
             return true;
         }
         if (id == R.id.action_duties) {
-            TextView mIDTextView = (TextView) findViewById(R.id.txtgroupID);
             Intent intent = new Intent(CreateDutyActivity.this, DutiesListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_home) {
-            TextView mIDTextView = (TextView) findViewById(R.id.txtgroupID);
             Intent intent = new Intent(CreateDutyActivity.this, MainActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
         }
         if (id == R.id.action_emergency) {
-            TextView mIDTextView = (TextView) findViewById(R.id.txtgroupID);
             Intent intent = new Intent(CreateDutyActivity.this, EmergencyDutiesListActivity.class);
-            intent.putExtra(ConstantsContainer.USER_ID, mIDTextView.getText());
             startActivity(intent);
             finish();
             return true;
