@@ -15,6 +15,11 @@ public class Status {
         return id;
     }
 
+    public Status(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }

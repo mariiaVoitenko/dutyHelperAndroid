@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -65,6 +67,19 @@ public class GroupListActivity extends ActionBarActivity {
                         final GroupListAdapter adapter = new GroupListAdapter(GroupListActivity.this, items);
                         ListView listView = (ListView) findViewById(R.id.listviewGroup);
                         listView.setAdapter(adapter);
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                                    long id) {
+                                Group group = adapter.getItem(position);
+                                TextView textView = (TextView) findViewById(R.id.txtgroupID);
+                                textView.setText(group.getId() + "");
+                                Intent intent = new Intent(GroupListActivity.this, GroupDetailsActivity.class);
+                                intent.putExtra(ConstantsContainer.GROUP_ID, textView.getText().toString());
+                                startActivity(intent);
+                            }
+                        });
                     }
 
                     @Override

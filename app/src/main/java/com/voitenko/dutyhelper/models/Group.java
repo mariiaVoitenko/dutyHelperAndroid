@@ -11,6 +11,28 @@ public class Group {
     @Expose
     private String name;
 
+    public Group(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    public Group() {
+
+    }
+
+    public Group(Integer id, String name) {
+
+        this.id = id;
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }

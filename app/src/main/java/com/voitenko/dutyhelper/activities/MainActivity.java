@@ -76,6 +76,13 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(new Intent(MainActivity.this, CreateDutyActivity.class));
             }
         });
+
+        mCreateGroupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CreateGroupActivity.class));
+            }
+        });
     }
 
     @Override

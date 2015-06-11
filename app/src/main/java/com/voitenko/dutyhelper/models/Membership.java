@@ -17,6 +17,20 @@ public class Membership {
     @Expose
     private Group userGroup;
 
+    public Membership(Integer id, Group userGroup, User user, Status status) {
+        this.id = id;
+        this.userGroup = userGroup;
+        this.user = user;
+        this.status = status;
+    }
+
+    public Membership(Status status, User user, Group userGroup) {
+
+        this.status = status;
+        this.user = user;
+        this.userGroup = userGroup;
+    }
+
     public Integer getId() {
         return id;
     }
