@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.voitenko.dutyhelper.API.CategoriesAPI;
@@ -40,7 +42,18 @@ public class CreateDutyActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_duty);
         mCreateDutyButton = (Button) findViewById(R.id.create_duty_button);
+        Spinner categoriesSpinner = (Spinner) findViewById(R.id.create_category_spinner);
+        Spinner prioritySpinner = (Spinner) findViewById(R.id.create_priority_spinner);
 
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this,
+                R.array.categories, android.R.layout.simple_spinner_item);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoriesSpinner.setAdapter(categoryAdapter);
+
+        final ArrayAdapter<CharSequence> priorityAdapter = ArrayAdapter.createFromResource(this,
+                R.array.priorities, android.R.layout.simple_spinner_item);
+        priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        prioritySpinner.setAdapter(priorityAdapter);
         mCreateDutyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,31 +100,31 @@ public class CreateDutyActivity extends ActionBarActivity {
     }
 
     private void createDuty(){
-        EditText priority = (EditText) findViewById(R.id.create_priority);
-        EditText category = (EditText) findViewById(R.id.create_categoty);
+        Spinner categoriesSpinner = (Spinner) findViewById(R.id.create_category_spinner);
+        Spinner prioritySpinner = (Spinner) findViewById(R.id.create_priority_spinner);
 
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         final CategoriesAPI categoriesAPI = serviceGenerator.createService(CategoriesAPI.class, ConstantsContainer.ENDPOINT);
         final PrioritiesAPI prioritiesAPI = serviceGenerator.createService(PrioritiesAPI.class, ConstantsContainer.ENDPOINT);
         final DutiesAPI dutiesAPI = serviceGenerator.createService(DutiesAPI.class, ConstantsContainer.ENDPOINT);
-        final String categoryName = category.getText().toString();
-        final String priorityName = priority.getText().toString();
+        final String categoryName = categoriesSpinner.getSelectedItem().toString();
+        final String priorityName = prioritySpinner.getSelectedItem().toString();
 
         categoriesAPI.getAll(
                 new Callback<ArrayList<Category>>() {
                     @Override
                     public void success(ArrayList<Category> categories, Response response) {
-                        int idC = 0;
-                        String nameC = "";
+                        int currentCategoryId = 0;
+                        String urrentCategotyName = "";
                         for (Category c : categories) {
                             if (c.getName().equals(categoryName)) {
-                                idC = c.getId();
-                                nameC = c.getName();
+                                currentCategoryId = c.getId();
+                                urrentCategotyName = c.getName();
 
                             }
                         }
-                        final String categoryName = nameC;
-                        final int categoryId = idC;
+                        final String categoryName = urrentCategotyName;
+                        final int categoryId = currentCategoryId;
                         prioritiesAPI.getAll(
                                 new Callback<ArrayList<Priority>>() {
                                     int id;
