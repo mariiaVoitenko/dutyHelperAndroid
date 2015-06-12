@@ -31,13 +31,15 @@ import retrofit.client.Response;
 
 
 public class GroupDetailsActivity extends ActionBarActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_details);
         final Button saveButton = (Button) findViewById(R.id.edit_group_button);
+        final Button addButton = (Button) findViewById(R.id.add_members_button);
         final int groupId = Integer.parseInt(getIntent().getStringExtra(ConstantsContainer.GROUP_ID));
+        final TextView textView = (TextView) findViewById(R.id.txtgroupID);
+        textView.setText(groupId + "");
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         final GroupsAPI groupsAPI = serviceGenerator.createService(GroupsAPI.class, ConstantsContainer.ENDPOINT);
         final MembershipAPI membershipAPI = serviceGenerator.createService(MembershipAPI.class, ConstantsContainer.ENDPOINT);
@@ -68,21 +70,33 @@ public class GroupDetailsActivity extends ActionBarActivity {
                         });
                     }
                 });
+
+                addButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(GroupDetailsActivity.this, AddMemberActivity.class);
+                        final TextView textView = (TextView) findViewById(R.id.txtgroupID);
+                        textView.setText(groupId + "");
+                        intent.putExtra(ConstantsContainer.GROUP_ID, textView.getText().toString());
+                        startActivity(intent);
+                    }
+                });
                 membershipAPI.getAll(new Callback<ArrayList<Membership>>() {
                     @Override
                     public void success(ArrayList<Membership> memberships, Response response) {
-                        List<Integer>ids=new ArrayList<Integer>();
-                        for(Membership m:memberships){
-                            if(m.getUserGroup().getId()==groupId){
+                        List<Integer> ids = new ArrayList<Integer>();
+                        for (Membership m : memberships) {
+                            if (m.getUserGroup().getId() == groupId) {
                                 ids.add(m.getUser().getId());
                             }
                         }
-                        for(int i:ids){
+                        for (int i : ids) {
                             usersAPI.getUser(i, new Callback<User>() {
                                 @Override
                                 public void success(User user, Response response) {
                                     final TextView textView = (TextView) findViewById(R.id.members);
-                                    textView.setText(user.getEmail()+"\n");
+                                    String membersText=textView.getText().toString();
+                                    textView.setText(membersText+user.getEmail() + "\n");
                                 }
 
                                 @Override
