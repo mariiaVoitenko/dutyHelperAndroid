@@ -1,6 +1,9 @@
 package com.voitenko.dutyhelper.API;
 
+import com.voitenko.dutyhelper.models.Membership;
 import com.voitenko.dutyhelper.models.User;
+
+import java.util.ArrayList;
 
 import retrofit.Callback;
 
@@ -22,5 +25,7 @@ public interface UsersAPI {
     @GET("/api/users/validate/{login}")
     public void getPasswordByLogin(@Path("login") String login, Callback<User> response);
 
+    @GET("/api/users")
+    public void getAll(Callback<ArrayList<User>> response);
 
 }

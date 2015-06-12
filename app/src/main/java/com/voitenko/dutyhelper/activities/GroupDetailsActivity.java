@@ -8,14 +8,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.voitenko.dutyhelper.API.DutiesAPI;
 import com.voitenko.dutyhelper.API.GroupsAPI;
+import com.voitenko.dutyhelper.API.MembershipAPI;
+import com.voitenko.dutyhelper.API.UsersAPI;
 import com.voitenko.dutyhelper.BL.ServiceGenerator;
 import com.voitenko.dutyhelper.ConstantsContainer;
 import com.voitenko.dutyhelper.R;
 import com.voitenko.dutyhelper.models.Group;
+import com.voitenko.dutyhelper.models.Membership;
+import com.voitenko.dutyhelper.models.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -32,10 +40,13 @@ public class GroupDetailsActivity extends ActionBarActivity {
         final int groupId = Integer.parseInt(getIntent().getStringExtra(ConstantsContainer.GROUP_ID));
         ServiceGenerator serviceGenerator = new ServiceGenerator();
         final GroupsAPI groupsAPI = serviceGenerator.createService(GroupsAPI.class, ConstantsContainer.ENDPOINT);
+        final MembershipAPI membershipAPI = serviceGenerator.createService(MembershipAPI.class, ConstantsContainer.ENDPOINT);
+        final UsersAPI usersAPI = serviceGenerator.createService(UsersAPI.class, ConstantsContainer.ENDPOINT);
         groupsAPI.getGroup(groupId, new Callback<Group>() {
             @Override
             public void success(final Group group, Response response) {
                 final EditText editText = (EditText) findViewById(R.id.group_name);
+
                 editText.setText(group.getName().toString());
 
                 saveButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +68,37 @@ public class GroupDetailsActivity extends ActionBarActivity {
                         });
                     }
                 });
+                membershipAPI.getAll(new Callback<ArrayList<Membership>>() {
+                    @Override
+                    public void success(ArrayList<Membership> memberships, Response response) {
+                        List<Integer>ids=new ArrayList<Integer>();
+                        for(Membership m:memberships){
+                            if(m.getUserGroup().getId()==groupId){
+                                ids.add(m.getUser().getId());
+                            }
+                        }
+                        for(int i:ids){
+                            usersAPI.getUser(i, new Callback<User>() {
+                                @Override
+                                public void success(User user, Response response) {
+                                    final TextView textView = (TextView) findViewById(R.id.members);
+                                    textView.setText(user.getEmail()+"\n");
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
+
             }
 
             @Override
