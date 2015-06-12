@@ -40,6 +40,14 @@
         <item>medium</item>
         <item>low</item>
     </string-array>
+    <string-array name="groups">
+        <item>home</item>
+        <item>university</item>
+        <item>work</item>
+        <item>hospital</item>
+        <item>party</item>
+        <item>school</item>
+    </string-array>
     <string name="title_activity_create_group">CreateGroupActivity</string>
     <string name="title_activity_group_details">GroupDetailsActivity</string>
     <string name="title_activity_add_member">AddMemberActivity</string>

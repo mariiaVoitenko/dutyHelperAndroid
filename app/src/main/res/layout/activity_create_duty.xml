@@ -171,7 +171,30 @@
             android:textSize="16sp"
             android:textStyle="italic" />
     </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="7dp">
 
+        <TextView
+            android:id="@+id/groupLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:text="Assigned to group: "
+            android:textColor="#4a4a4a"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/assignment_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#4a4a4a"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+    </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"

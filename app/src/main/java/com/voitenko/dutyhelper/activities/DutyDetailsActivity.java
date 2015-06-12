@@ -56,6 +56,13 @@ public class DutyDetailsActivity extends ActionBarActivity {
                 R.array.categories, android.R.layout.simple_spinner_item);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categoriesSpinner.setAdapter(categoryAdapter);
+        Spinner group = (Spinner) findViewById(R.id.assignment_spinner);
+        String[] arraySpinner = new String[] {
+                "home"
+        };
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, arraySpinner);
+        group.setAdapter(adapter);
 
         final ArrayAdapter<CharSequence> priorityAdapter = ArrayAdapter.createFromResource(this,
                 R.array.priorities, android.R.layout.simple_spinner_item);
@@ -72,6 +79,8 @@ public class DutyDetailsActivity extends ActionBarActivity {
                 Spinner categoriesSpinner = (Spinner) findViewById(R.id.category_spinner);
                 Spinner prioritySpinner = (Spinner) findViewById(R.id.priority_spinner);
                 Spinner isDone = (Spinner) findViewById(R.id.done_spinner);
+                Spinner group = (Spinner) findViewById(R.id.assignment_spinner);
+
                 name.setText(duty.getName());
                 startDate.setText(DataConverter.getTime(duty.getStartDate()));
                 endDate.setText(DataConverter.getTime(duty.getEndDate()));

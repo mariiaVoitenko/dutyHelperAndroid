@@ -44,6 +44,7 @@ public class CreateDutyActivity extends ActionBarActivity {
         mCreateDutyButton = (Button) findViewById(R.id.create_duty_button);
         Spinner categoriesSpinner = (Spinner) findViewById(R.id.create_category_spinner);
         Spinner prioritySpinner = (Spinner) findViewById(R.id.create_priority_spinner);
+        Spinner groupSpinner = (Spinner) findViewById(R.id.assignment_spinner);
 
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this,
                 R.array.categories, android.R.layout.simple_spinner_item);
@@ -54,6 +55,11 @@ public class CreateDutyActivity extends ActionBarActivity {
                 R.array.priorities, android.R.layout.simple_spinner_item);
         priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         prioritySpinner.setAdapter(priorityAdapter);
+
+        ArrayAdapter<CharSequence> groupAdapter = ArrayAdapter.createFromResource(this,
+                R.array.groups, android.R.layout.simple_spinner_item);
+        groupAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        groupSpinner.setAdapter(groupAdapter);
         mCreateDutyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
