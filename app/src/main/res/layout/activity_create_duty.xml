@@ -7,6 +7,11 @@
     android:padding="7dp"
     android:weightSum="4">
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/duty_creation" />
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -18,20 +23,20 @@
             android:id="@+id/nameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:text="Duty: "
             android:textColor="#4a4a4a"
-            android:textSize="24sp"
-            android:paddingTop="10dp"/>
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/create_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:text=""
             android:textColor="#4a4a4a"
-            android:layout_gravity="left"
-            android:textStyle="italic"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="italic" />
     </LinearLayout>
 
 
@@ -39,44 +44,44 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="7dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="7dp">
 
         <TextView
             android:id="@+id/startDateLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:text="Start date: "
             android:textColor="#4a4a4a"
-            android:textSize="16sp"
-            android:paddingTop="10dp"/>
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/create_date_start"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textStyle="italic"
-            android:textColor="#4a4a4a"
             android:layout_gravity="left"
-            android:textSize="16sp" />
+            android:text=""
+            android:textColor="#4a4a4a"
+            android:textSize="16sp"
+            android:textStyle="italic" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="7dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="7dp">
 
         <TextView
             android:id="@+id/endDateLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:text="End date: "
             android:textColor="#4a4a4a"
-            android:textSize="16sp"
-            android:paddingTop="10dp"/>
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/create_date_end"
@@ -84,9 +89,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:text=""
-            android:textStyle="italic"
             android:textColor="#4a4a4a"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="italic" />
     </LinearLayout>
 
 
@@ -101,10 +106,10 @@
             android:id="@+id/descriptionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:text="Description: "
             android:textColor="#4a4a4a"
-            android:textSize="18sp"
-            android:paddingTop="10dp"/>
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/create_description"
@@ -112,9 +117,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:text=""
-            android:textStyle="italic"
             android:textColor="#4a4a4a"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="italic" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -128,18 +133,18 @@
             android:id="@+id/categoryLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:text="Category: "
             android:textColor="#4a4a4a"
-            android:textSize="16sp"
-            android:paddingTop="10dp"/>
+            android:textSize="16sp" />
 
         <Spinner
             android:id="@+id/create_category_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="italic"
             android:textColor="#4a4a4a"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:textStyle="italic" />
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -153,21 +158,32 @@
             android:id="@+id/priorityLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="15dp"
             android:text="Priority: "
             android:textColor="#4a4a4a"
-            android:textSize="16sp"
-            android:paddingTop="10dp"/>
+            android:textSize="16sp" />
+
         <Spinner
             android:id="@+id/create_priority_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="italic"
             android:textColor="#4a4a4a"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:textStyle="italic" />
     </LinearLayout>
-    <Button
-        android:id="@+id/create_duty_button"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create_duty"/>
+        android:orientation="horizontal"
+        android:paddingLeft="7dp">
+
+        <Button
+            android:id="@+id/create_duty_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/create_duty" />
+    </LinearLayout>
 </LinearLayout>

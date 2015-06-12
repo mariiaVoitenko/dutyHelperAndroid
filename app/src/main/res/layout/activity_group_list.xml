@@ -16,5 +16,6 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:padding="20px"
-        android:text=""/>
+        android:text=""
+        android:visibility="invisible"/>
 </RelativeLayout>

@@ -6,7 +6,10 @@
     android:orientation="vertical"
     android:padding="7dp"
     android:weightSum="4">
-
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/duty_details" />
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
